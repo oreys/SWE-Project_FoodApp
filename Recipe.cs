@@ -14,6 +14,7 @@ namespace FoodAppLibrary
         }
         List<recipe> allRecipes;
         List<recipe> collectedRecipes;
+
         public void SearchRecipesForIngredients(List<Ingredients.ingredient> enteredIngredients)
         {
             bool onlyEnteredIngredientsInRecipe = true;
@@ -32,7 +33,6 @@ namespace FoodAppLibrary
                 }
             }
         }
-        public void CreateNewRecipe() { }
-        public void addNewIngredient() { }
+
     }
 }
