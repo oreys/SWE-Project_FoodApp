@@ -1,20 +1,17 @@
 using System.Collections.Generic;
 
-namespace FoodAppLibrary
+public class Recipe
 {
-    public class Recipe
+    struct recipe
     {
-        struct recipe
-        {
-            public string name;
-            public string description;
-            public List<string> steps;
+        public string name;
+        public string description;
+        public List<string> steps;
 
             public List<Ingredients.ingredient> ingredients;
         }
         List<recipe> allRecipes;
         List<recipe> collectedRecipes;
-
         public void SearchRecipesForIngredients(List<Ingredients.ingredient> enteredIngredients)
         {
             bool onlyEnteredIngredientsInRecipe = true;
@@ -33,6 +30,7 @@ namespace FoodAppLibrary
                 }
             }
         }
-
+        public void CreateNewRecipe() { }
+        public void addNewIngredient() { }
     }
 }
