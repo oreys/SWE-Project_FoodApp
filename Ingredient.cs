@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 
-namespace FoodAppLibrary
+namespace FoodApp
 {
-    public class Ingredients: IEnumerable
+    public class Ingredients : IEnumerable
     {
-        public struct ingredient 
+        public struct ingredient
         {
             string name;
             int id;
