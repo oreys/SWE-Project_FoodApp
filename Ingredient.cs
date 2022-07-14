@@ -1,28 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
-
-namespace FoodApp
+﻿namespace FoodApp
 {
-    public class Ingredients : IEnumerable
+    //update github
+    public class Ingredient
     {
-        public struct ingredient
-        {
-            string name;
-            int id;
-        }
-        public List<ingredient> ingredients;
-
-
-        public IEnumerator<T> GetEnumerator<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        public int ID;
+        public string name;
+        public int amount;
+        public int unitID;
+        public string unit;
     }
 }
