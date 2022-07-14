@@ -1,6 +1,5 @@
 ﻿namespace FoodApp
 {
-    //update github
     public class Ingredient
     {
         public int ID;
