@@ -1,36 +1,39 @@
-using System.Collections.Generic;
-
-public class Recipe
+namespace FoodApp
 {
-    struct recipe
+    public class Recipe
     {
+        public int id;
         public string name;
         public string description;
-        public List<string> steps;
+        public List<Step> steps;
+        public List<Ingredient> ingredients;
 
-            public List<Ingredients.ingredient> ingredients;
-        }
-        List<recipe> allRecipes;
-        List<recipe> collectedRecipes;
-        public void SearchRecipesForIngredients(List<Ingredients.ingredient> enteredIngredients)
+        public void StepsListToString(List<string> list)
         {
-            bool onlyEnteredIngredientsInRecipe = true;
-            foreach (recipe recipe in allRecipes)
+            string collectedSteps = "";
+            int counter = 0;//counter for list
+            int number = 1;
+            foreach (Step step in steps)//check if still correct
             {
-                foreach(Ingredients.ingredient recipeIngredient in recipe.ingredients)
-                {
-                    if(!(enteredIngredients.Contains(recipeIngredient)))
-                    {
-                        onlyEnteredIngredientsInRecipe = false;
-                    }
-                }
-                if (onlyEnteredIngredientsInRecipe == true)
-                {
-                    collectedRecipes.Add(recipe);
-                }
+                collectedSteps += number.ToString() + ". " + list[counter];
+                number++;
+                counter++;
             }
         }
-        public void CreateNewRecipe() { }
-        public void addNewIngredient() { }
+
+        /* public void IngredientsListToString(List<Ingredient> list)//unfinished
+         {
+             string collectedIngredients = "";
+             int counter = 0;//counter for list
+             int number = 1;
+             foreach (Ingredient ingredient in collectedIngredients)
+             {
+                 //collectedIngredients += list[counter];
+                 number++;
+                 counter++;
+             }
+         }*/
     }
+
+
 }
