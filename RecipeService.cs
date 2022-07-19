@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -8,7 +9,7 @@ namespace FoodApp
     public class RecipeService
     {
         public SqlConnection connection;
-        string connectionString;
+        string connectionString = DatabaseFunctions.getConnectionString();
 
         public string sqlJoinFromString = @"FROM units INNER JOIN((Recipes INNER JOIN (Ingredients INNER JOIN Recipe_connect 
                         ON Ingredients.ID = Recipe_connect.Ingredient_ID) ON Recipes.ID = Recipe_connect.Recipe_ID) 
@@ -41,7 +42,7 @@ namespace FoodApp
             allRecipes = GetAllRecipesIDs(allRecipes);
             List<Recipe> collectedRecipes = new List<Recipe>();
             bool onlyEnteredIngredientsInRecipe = true;
-            int i = 0;//counter for allRecipes[]
+            int i = 0;  //counter for allRecipes[]
             foreach (Recipe recipeInstance in allRecipes)
             {
                 foreach (Ingredient recipeIngredient in allRecipes[i].ingredients)
@@ -63,12 +64,12 @@ namespace FoodApp
 
         public List<Recipe> CompleteDataInRecipes(List<Recipe> selectedRecipes)
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))//connection string name????
+            using (SqlConnection cn = new SqlConnection(connectionString))  //connection string name????
             {
                 cn.Open();
                 SqlCommand sqlCommand = new SqlCommand(sqlSelectRestOfRecipe + sqlJoinFromString, cn);
                 SqlDataReader reader = sqlCommand.ExecuteReader();
-                int i = 0; //counter for selectedRecipes[]
+                int i = 0;  //counter for selectedRecipes[]
                 while (reader.Read())
                 {
                     selectedRecipes[i].name = (string)reader["recipe_name"];
@@ -102,7 +103,7 @@ namespace FoodApp
 
         public List<Ingredient> GetIngredientIDs(List<Ingredient> allIngredients)
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))//connection string name????
+            using (SqlConnection cn = new SqlConnection(connectionString))  //connection string name????
             {
                 cn.Open();
                 SqlCommand sqlCommand = new SqlCommand(sqlSelectRecipeAndIngredient + sqlJoinFromString, cn);
@@ -116,6 +117,74 @@ namespace FoodApp
                 cn.Close();
             }
             return allIngredients;
+        }
+
+        public void insertRecipe(Recipe recipe)
+        {
+            //saves the ID of the new created Recipe for using it in the connectionTables
+            int newRecipeID;
+
+            string query = "INSERT INTO Recipes (recipe_name, short_describtion) VALUES (@newRecipeName, @newDescribtion) select scope_identity()", cons;
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+
+                command.Parameters.AddWithValue("@newRecipeName", recipe.name);
+                command.Parameters.AddWithValue("@newDescribtion", recipe.description);
+
+                newRecipeID = Convert.ToInt32(command.ExecuteScalar());
+
+                connection.Close();
+            }
+
+            foreach (Step step in recipe.steps)
+            {
+                query = "INSERT INTO Recipes_Steps (Recipe_ID, Step_Number, Step_Discription) VALUES (@newRecipeID, @newStepNumber, @newStep)";
+
+                using (connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+
+                    command.Parameters.AddWithValue("@newRecipeDI", newRecipeID);
+                    command.Parameters.AddWithValue("@newStepNumber", step.number);
+                    command.Parameters.AddWithValue("@newStep", step.description);
+
+                    connection.Close();
+                }
+            }
+
+            foreach (Ingredient i in recipe.ingredients)
+            {
+                query = "INSERT INTO Recipes_connect (Recipe_ID, Ingredient_ID, Amount, Unit_ID) VALUES (@newRecipeID, @ingredientID, @amount, @unitID)";
+
+                using (connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+
+                    command.Parameters.AddWithValue("@newRecipeDI", newRecipeID);
+                    command.Parameters.AddWithValue("@ingredientID", i.ID);
+                    command.Parameters.AddWithValue("@amount", i.amount);
+                    command.Parameters.AddWithValue("@unitID", i.unitID);
+
+                    connection.Close();
+                }
+            }
+        }
+        public void insertIngredient(string newIngredient)
+        {
+            string query = "INSERT INTO Ingredients (ingredient) VALUES (@newIngredient)";
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+
+                command.Parameters.AddWithValue("@newIngredient", newIngredient);
+
+                connection.Close();
+            }
         }
     }
 }
