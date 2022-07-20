@@ -15,8 +15,8 @@ namespace FoodApp
                         ON Ingredients.ID = Recipe_connect.Ingredient_ID) ON Recipes.ID = Recipe_connect.Recipe_ID) 
                         INNER JOIN Recipe_steps ON Recipes.ID = Recipe_steps.Recipe_ID) ON Units.ID = Recipe_connect.Unit_ID;";
         public string sqlSelectRecipeAndIngredient = "SELECT Recipe_connect.Recipe_ID, Recipe_connect.Ingredient_ID ";
-        public string sqlSelectRestOfRecipe = "SELECT Ingredients.Ingredient, Recipe_connect.amount, Recipes.recipe_name, Recipes.short_description, Recipe_steps.step_description, Units.unit ";
-
+        public string sqlSelectRestOfRecipe = "SELECT ingredients.Ingredient, Recipe_connect.amount, Recipes.recipe_name, Recipes.short_description, Recipe_steps.step_description, Units.unit ";
+        public string sqlIngredientNames = "SELECT ingredients.ingredient";
         public List<Recipe> GetAllRecipesIDs(List<Recipe> allRecipes)
         {
             using (SqlConnection cn = new SqlConnection(connectionString))
@@ -64,7 +64,7 @@ namespace FoodApp
 
         public List<Recipe> CompleteDataInRecipes(List<Recipe> selectedRecipes)
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))  //connection string name????
+            using (SqlConnection cn = new SqlConnection(connectionString))
             {
                 cn.Open();
                 SqlCommand sqlCommand = new SqlCommand(sqlSelectRestOfRecipe + sqlJoinFromString, cn);
@@ -117,6 +117,26 @@ namespace FoodApp
                 cn.Close();
             }
             return allIngredients;
+        }
+
+        public List<Ingredient> GetIngredientsFromDatabase()
+        {
+            List<Ingredient> availableIngredients = new List<Ingredient>();
+            using (SqlConnection cn = new SqlConnection(connectionString))
+            {
+                cn.Open();
+                SqlCommand sqlCommand = new SqlCommand(sqlIngredientNames + sqlJoinFromString, cn);
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                int i = 0; //counter for availableIngredients
+                while (reader.Read())
+                {
+                    availableIngredients[i].name = (string)reader["ingredient"];
+
+                }
+                cn.Close();
+
+                return availableIngredients;
+            }
         }
 
         public void insertRecipe(Recipe recipe)
@@ -187,4 +207,5 @@ namespace FoodApp
             }
         }
     }
+
 }
