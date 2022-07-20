@@ -34,7 +34,10 @@
             this.btnSerchRecipe = new System.Windows.Forms.Button();
             this.btnAddRecipe = new System.Windows.Forms.Button();
             this.pnlSite = new System.Windows.Forms.Panel();
+            this.addNewRecipe1 = new FoodApp.AddNewRecipe();
+            this.home1 = new FoodApp.Home();
             this.pnlMenu.SuspendLayout();
+            this.pnlSite.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMenu
@@ -67,6 +70,7 @@
             this.btnHome.TabIndex = 2;
             this.btnHome.Text = "Home";
             this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // btnSerchRecipe
             // 
@@ -76,6 +80,7 @@
             this.btnSerchRecipe.TabIndex = 3;
             this.btnSerchRecipe.Text = "Search Recipe";
             this.btnSerchRecipe.UseVisualStyleBackColor = true;
+            this.btnSerchRecipe.Click += new System.EventHandler(this.btnSerchRecipe_Click);
             // 
             // btnAddRecipe
             // 
@@ -85,14 +90,31 @@
             this.btnAddRecipe.TabIndex = 4;
             this.btnAddRecipe.Text = "Add Recipe";
             this.btnAddRecipe.UseVisualStyleBackColor = true;
+            this.btnAddRecipe.Click += new System.EventHandler(this.btnAddRecipe_Click);
             // 
             // pnlSite
             // 
+            this.pnlSite.Controls.Add(this.home1);
+            this.pnlSite.Controls.Add(this.addNewRecipe1);
             this.pnlSite.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlSite.Location = new System.Drawing.Point(200, 0);
             this.pnlSite.Name = "pnlSite";
             this.pnlSite.Size = new System.Drawing.Size(978, 744);
             this.pnlSite.TabIndex = 1;
+            // 
+            // addNewRecipe1
+            // 
+            this.addNewRecipe1.Location = new System.Drawing.Point(0, 0);
+            this.addNewRecipe1.Name = "addNewRecipe1";
+            this.addNewRecipe1.Size = new System.Drawing.Size(978, 744);
+            this.addNewRecipe1.TabIndex = 0;
+            // 
+            // home1
+            // 
+            this.home1.Location = new System.Drawing.Point(0, 0);
+            this.home1.Name = "home1";
+            this.home1.Size = new System.Drawing.Size(978, 744);
+            this.home1.TabIndex = 1;
             // 
             // GUI
             // 
@@ -102,8 +124,9 @@
             this.Controls.Add(this.pnlSite);
             this.Controls.Add(this.pnlMenu);
             this.Name = "GUI";
-            this.Text = "Form1";
+            this.Text = "FoodApp";
             this.pnlMenu.ResumeLayout(false);
+            this.pnlSite.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -116,6 +139,8 @@
         private System.Windows.Forms.Button btnSerchRecipe;
         private System.Windows.Forms.Button btnAddRecipe;
         private System.Windows.Forms.Panel pnlSite;
+        private AddNewRecipe addNewRecipe1;
+        private Home home1;
     }
 }
 
