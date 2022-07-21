@@ -53,6 +53,7 @@
             this.pnlStepNumber = new System.Windows.Forms.Panel();
             this.lblStepNumber1 = new System.Windows.Forms.Label();
             this.lblSteps = new System.Windows.Forms.Label();
+            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.pnlHead.SuspendLayout();
             this.pnlIngredientsCombined.SuspendLayout();
             this.pnlIngredients.SuspendLayout();
@@ -71,7 +72,6 @@
             this.pnlHead.Controls.Add(this.lblNewRecipeName);
             this.pnlHead.Controls.Add(this.lblNewRecipeDescription);
             this.pnlHead.Controls.Add(this.btnAddNewRecipe);
-            this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHead.Location = new System.Drawing.Point(0, 0);
             this.pnlHead.Name = "pnlHead";
             this.pnlHead.Size = new System.Drawing.Size(978, 250);
@@ -291,10 +291,19 @@
             this.lblSteps.TabIndex = 11;
             this.lblSteps.Text = "Steps";
             // 
+            // vScrollBar1
+            // 
+            this.vScrollBar1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.vScrollBar1.Location = new System.Drawing.Point(952, 0);
+            this.vScrollBar1.Name = "vScrollBar1";
+            this.vScrollBar1.Size = new System.Drawing.Size(26, 744);
+            this.vScrollBar1.TabIndex = 1;
+            // 
             // AddNewRecipe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.vScrollBar1);
             this.Controls.Add(this.pnlIngredientsCombined);
             this.Controls.Add(this.pnlStepsCombined);
             this.Controls.Add(this.pnlHead);
@@ -346,5 +355,6 @@
         private System.Windows.Forms.Button btnAddIngredient;
         private System.Windows.Forms.Button btnAddStep;
         private System.Windows.Forms.Button btnAddNewIngredient;
+        private System.Windows.Forms.VScrollBar vScrollBar1;
     }
 }
