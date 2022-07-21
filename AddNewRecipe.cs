@@ -52,9 +52,9 @@ namespace FoodApp
                 comboBoxU = cbListU[i];
 
                 ingredient.ID = Convert.ToInt32(comboBoxI.SelectedValue);
-                if (!(string.IsNullOrEmpty(txtAmount1.Text)))
+                if (!(string.IsNullOrEmpty(txtBoxI.Text)))
                 {
-                    ingredient.amount = Convert.ToInt32(txtAmount1.Text);
+                    ingredient.amount = Convert.ToInt32(txtBoxI.Text);
                 }
                 ingredient.unitID = Convert.ToInt32(comboBoxU.SelectedValue);
 
