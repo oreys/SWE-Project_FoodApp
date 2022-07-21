@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.gbAddIngredient = new System.Windows.Forms.GroupBox();
-            this.cbIngredient = new System.Windows.Forms.ComboBox();
-            this.labelSelectIngredient = new System.Windows.Forms.Label();
             this.btnAddOtherIngredient = new System.Windows.Forms.Button();
+            this.labelSelectIngredient = new System.Windows.Forms.Label();
+            this.cbIngredient = new System.Windows.Forms.ComboBox();
             this.btnStartSearch = new System.Windows.Forms.Button();
+            this.labelEnteredIngredients = new System.Windows.Forms.Label();
             this.gbAddIngredient.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,14 +49,14 @@
             this.gbAddIngredient.TabStop = false;
             this.gbAddIngredient.Text = "groupBox1";
             // 
-            // cbIngredient
+            // btnAddOtherIngredient
             // 
-            this.cbIngredient.FormattingEnabled = true;
-            this.cbIngredient.Location = new System.Drawing.Point(264, 40);
-            this.cbIngredient.Name = "cbIngredient";
-            this.cbIngredient.Size = new System.Drawing.Size(298, 24);
-            this.cbIngredient.TabIndex = 0;
-            this.cbIngredient.SelectedIndexChanged += new System.EventHandler(this.cbIngredient_SelectedIndexChanged);
+            this.btnAddOtherIngredient.Location = new System.Drawing.Point(619, 78);
+            this.btnAddOtherIngredient.Name = "btnAddOtherIngredient";
+            this.btnAddOtherIngredient.Size = new System.Drawing.Size(184, 23);
+            this.btnAddOtherIngredient.TabIndex = 2;
+            this.btnAddOtherIngredient.Text = "Add Another Ingredient";
+            this.btnAddOtherIngredient.UseVisualStyleBackColor = true;
             // 
             // labelSelectIngredient
             // 
@@ -66,14 +67,14 @@
             this.labelSelectIngredient.TabIndex = 1;
             this.labelSelectIngredient.Text = "Select Ingredient :";
             // 
-            // btnAddOtherIngredient
+            // cbIngredient
             // 
-            this.btnAddOtherIngredient.Location = new System.Drawing.Point(619, 78);
-            this.btnAddOtherIngredient.Name = "btnAddOtherIngredient";
-            this.btnAddOtherIngredient.Size = new System.Drawing.Size(184, 23);
-            this.btnAddOtherIngredient.TabIndex = 2;
-            this.btnAddOtherIngredient.Text = "Add Another Ingredient";
-            this.btnAddOtherIngredient.UseVisualStyleBackColor = true;
+            this.cbIngredient.FormattingEnabled = true;
+            this.cbIngredient.Location = new System.Drawing.Point(264, 40);
+            this.cbIngredient.Name = "cbIngredient";
+            this.cbIngredient.Size = new System.Drawing.Size(298, 24);
+            this.cbIngredient.TabIndex = 0;
+            this.cbIngredient.SelectedIndexChanged += new System.EventHandler(this.cbIngredient_SelectedIndexChanged);
             // 
             // btnStartSearch
             // 
@@ -83,11 +84,22 @@
             this.btnStartSearch.TabIndex = 1;
             this.btnStartSearch.Text = "Search For Recipes";
             this.btnStartSearch.UseVisualStyleBackColor = true;
+            this.btnStartSearch.Click += new System.EventHandler(this.btnStartSearch_Click);
+            // 
+            // labelEnteredIngredients
+            // 
+            this.labelEnteredIngredients.AutoSize = true;
+            this.labelEnteredIngredients.Location = new System.Drawing.Point(118, 215);
+            this.labelEnteredIngredients.Name = "labelEnteredIngredients";
+            this.labelEnteredIngredients.Size = new System.Drawing.Size(44, 16);
+            this.labelEnteredIngredients.TabIndex = 2;
+            this.labelEnteredIngredients.Text = "label1";
             // 
             // SearchRecipe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelEnteredIngredients);
             this.Controls.Add(this.btnStartSearch);
             this.Controls.Add(this.gbAddIngredient);
             this.Name = "SearchRecipe";
@@ -95,6 +107,7 @@
             this.gbAddIngredient.ResumeLayout(false);
             this.gbAddIngredient.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -105,5 +118,6 @@
         private System.Windows.Forms.Label labelSelectIngredient;
         private System.Windows.Forms.ComboBox cbIngredient;
         private System.Windows.Forms.Button btnStartSearch;
+        private System.Windows.Forms.Label labelEnteredIngredients;
     }
 }

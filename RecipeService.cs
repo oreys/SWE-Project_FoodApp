@@ -8,6 +8,8 @@ namespace FoodApp
 
     public class RecipeService
     {
+        public List<Ingredient> enteredIngredients;
+        public List<Recipe> collectedRecipes;
         public SqlConnection connection;
         string connectionString = DatabaseFunctions.getConnectionString();
 

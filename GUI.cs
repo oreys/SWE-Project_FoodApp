@@ -1,15 +1,5 @@
 ﻿using System;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Drawing;
 using System.Windows.Forms;
-using System.Configuration;
-using System.Data.SqlClient;
-using Microsoft.VisualBasic;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace FoodApp
 {
@@ -53,8 +43,9 @@ namespace FoodApp
         private void btnSerchRecipe_Click(object sender, EventArgs e)
         {
             home1.Visible = false;
-            //searchRecipe.Visible = true;
+            //searchRecipe1.Visible = true;
             addNewRecipe1.Visible = false;
+
         }
     }
 }

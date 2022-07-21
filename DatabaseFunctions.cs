@@ -1,15 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Resources;
 using System.IO;
 
 namespace FoodApp
@@ -17,7 +5,7 @@ namespace FoodApp
     public class DatabaseFunctions
     {
         public static string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=.\\food-app_database.mdf;Integrated Security=True";
-          
+
         //connect to database
         public void InitializeDatabaseFile()
         {
