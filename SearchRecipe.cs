@@ -6,16 +6,17 @@ namespace FoodApp
     public partial class SearchRecipe : UserControl
     {
         public static RecipeService recipeService = new RecipeService();
-        public List<Ingredient> availableIngredients = recipeService.GetIngredientsFromDatabase();
         public SearchRecipe()
         {
             InitializeComponent();
+            searchResults1.Visible = false;
         }
 
         private void BindCbIngredient()
         {
-            cbIngredient.DataSource = availableIngredients;
+            cbIngredient.DataSource = recipeService.GetIngredientsFromDatabase();
             cbIngredient.DisplayMember = "name";
+            cbIngredient.ValueMember = "ID";
         }
         private void cbIngredient_SelectedIndexChanged(object sender, System.EventArgs e)
         {
@@ -40,9 +41,13 @@ namespace FoodApp
         private void btnStartSearch_Click(object sender, System.EventArgs e)
         {
             recipeService.SearchRecipes(recipeService.enteredIngredients, recipeService.collectedRecipes);
-
+            searchResults1.Visible = true;
 
         }
 
+        private void btnAddOtherIngredient_Click(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

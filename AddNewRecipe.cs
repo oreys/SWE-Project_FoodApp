@@ -97,7 +97,7 @@ namespace FoodApp
             SqlConnection connection;
             string connectionString = DatabaseFunctions.getConnectionString();
 
-            //extrect Ingredients
+            //extract Ingredients
             string queryI = "SELECT * FROM ingredients";
 
             using (connection = new SqlConnection(connectionString))
@@ -116,7 +116,7 @@ namespace FoodApp
             SqlConnection connection;
             string connectionString = DatabaseFunctions.getConnectionString();
 
-            //extrect Units
+            //extract Units
             string queryU = "SELECT * FROM units";
 
             using (connection = new SqlConnection(connectionString))
