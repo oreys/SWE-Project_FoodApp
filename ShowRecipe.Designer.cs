@@ -33,9 +33,9 @@
             // 
             // flowPnlShowRecipe
             // 
-            this.flowPnlShowRecipe.Location = new System.Drawing.Point(21, 21);
+            this.flowPnlShowRecipe.Location = new System.Drawing.Point(21, 16);
             this.flowPnlShowRecipe.Name = "flowPnlShowRecipe";
-            this.flowPnlShowRecipe.Size = new System.Drawing.Size(934, 676);
+            this.flowPnlShowRecipe.Size = new System.Drawing.Size(825, 564);
             this.flowPnlShowRecipe.TabIndex = 0;
             // 
             // ShowRecipe
@@ -44,7 +44,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPnlShowRecipe);
             this.Name = "ShowRecipe";
-            this.Size = new System.Drawing.Size(982, 753);
+            this.Size = new System.Drawing.Size(869, 595);
             this.ResumeLayout(false);
 
         }

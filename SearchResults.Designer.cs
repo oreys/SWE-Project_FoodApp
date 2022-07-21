@@ -70,9 +70,9 @@
             // 
             this.flowPnl.Controls.Add(this.gbRecipe);
             this.flowPnl.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowPnl.Location = new System.Drawing.Point(67, 57);
+            this.flowPnl.Location = new System.Drawing.Point(26, 18);
             this.flowPnl.Name = "flowPnl";
-            this.flowPnl.Size = new System.Drawing.Size(847, 664);
+            this.flowPnl.Size = new System.Drawing.Size(812, 557);
             this.flowPnl.TabIndex = 1;
             // 
             // SearchResults
@@ -81,7 +81,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPnl);
             this.Name = "SearchResults";
-            this.Size = new System.Drawing.Size(982, 753);
+            this.Size = new System.Drawing.Size(869, 595);
+            this.Load += new System.EventHandler(this.SearchResults_Load);
             this.gbRecipe.ResumeLayout(false);
             this.gbRecipe.PerformLayout();
             this.flowPnl.ResumeLayout(false);
