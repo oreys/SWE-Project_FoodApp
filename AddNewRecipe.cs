@@ -52,7 +52,10 @@ namespace FoodApp
                 comboBoxU = cbListU[i];
 
                 ingredient.ID = Convert.ToInt32(comboBoxI.SelectedValue);
-                ingredient.amount = Convert.ToInt32(txtBoxI.Text);
+                if (!(string.IsNullOrEmpty(txtAmount1.Text)))
+                {
+                    ingredient.amount = Convert.ToInt32(txtAmount1.Text);
+                }
                 ingredient.unitID = Convert.ToInt32(comboBoxU.SelectedValue);
 
                 ingredients.Add(ingredient);
@@ -81,6 +84,8 @@ namespace FoodApp
             newRecipe.steps = steps;
 
             recipeService.insertRecipe(newRecipe);
+
+            
         }
 
         private void btnAddNewIngredient_Click(object sender, EventArgs e)

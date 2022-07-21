@@ -43,7 +43,7 @@
             this.txtAmount1 = new System.Windows.Forms.TextBox();
             this.pnlUnit = new System.Windows.Forms.Panel();
             this.cbUnit1 = new System.Windows.Forms.ComboBox();
-            this.lblIngregient = new System.Windows.Forms.Label();
+            this.lblIngredient = new System.Windows.Forms.Label();
             this.lblUnit = new System.Windows.Forms.Label();
             this.lblAmount = new System.Windows.Forms.Label();
             this.pnlStepsCombined = new System.Windows.Forms.Panel();
@@ -74,7 +74,7 @@
             this.pnlHead.Controls.Add(this.btnAddNewRecipe);
             this.pnlHead.Location = new System.Drawing.Point(0, 0);
             this.pnlHead.Name = "pnlHead";
-            this.pnlHead.Size = new System.Drawing.Size(978, 250);
+            this.pnlHead.Size = new System.Drawing.Size(978, 251);
             this.pnlHead.TabIndex = 0;
             // 
             // btnAddNewIngredient
@@ -136,7 +136,7 @@
             this.pnlIngredientsCombined.Controls.Add(this.pnlIngredients);
             this.pnlIngredientsCombined.Controls.Add(this.pnlAmount);
             this.pnlIngredientsCombined.Controls.Add(this.pnlUnit);
-            this.pnlIngredientsCombined.Controls.Add(this.lblIngregient);
+            this.pnlIngredientsCombined.Controls.Add(this.lblIngredient);
             this.pnlIngredientsCombined.Controls.Add(this.lblUnit);
             this.pnlIngredientsCombined.Controls.Add(this.lblAmount);
             this.pnlIngredientsCombined.Location = new System.Drawing.Point(0, 250);
@@ -201,14 +201,14 @@
             this.cbUnit1.Size = new System.Drawing.Size(80, 28);
             this.cbUnit1.TabIndex = 12;
             // 
-            // lblIngregient
+            // lblIngredient
             // 
-            this.lblIngregient.AutoSize = true;
-            this.lblIngregient.Location = new System.Drawing.Point(20, 20);
-            this.lblIngregient.Name = "lblIngregient";
-            this.lblIngregient.Size = new System.Drawing.Size(81, 20);
-            this.lblIngregient.TabIndex = 5;
-            this.lblIngregient.Text = "Ingregient";
+            this.lblIngredient.AutoSize = true;
+            this.lblIngredient.Location = new System.Drawing.Point(20, 20);
+            this.lblIngredient.Name = "lblIngredient";
+            this.lblIngredient.Size = new System.Drawing.Size(81, 20);
+            this.lblIngredient.TabIndex = 5;
+            this.lblIngredient.Text = "Ingredient";
             // 
             // lblUnit
             // 
@@ -278,9 +278,9 @@
             this.lblStepNumber1.AutoSize = true;
             this.lblStepNumber1.Location = new System.Drawing.Point(0, 0);
             this.lblStepNumber1.Name = "lblStepNumber1";
-            this.lblStepNumber1.Size = new System.Drawing.Size(22, 20);
+            this.lblStepNumber1.Size = new System.Drawing.Size(18, 20);
             this.lblStepNumber1.TabIndex = 6;
-            this.lblStepNumber1.Text = "1.";
+            this.lblStepNumber1.Text = "1";
             // 
             // lblSteps
             // 
@@ -339,7 +339,7 @@
         private System.Windows.Forms.Label lblNewRecipeName;
         private System.Windows.Forms.Label lblNewRecipeDescription;
         private System.Windows.Forms.TextBox txtAmount1;
-        private System.Windows.Forms.Label lblIngregient;
+        private System.Windows.Forms.Label lblIngredient;
         private System.Windows.Forms.Label lblUnit;
         private System.Windows.Forms.Label lblAmount;
         private System.Windows.Forms.TextBox txtStepDescription1;

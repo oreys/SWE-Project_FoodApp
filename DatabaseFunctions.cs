@@ -17,8 +17,8 @@ namespace FoodApp
 {
     public class DatabaseFunctions
     {
-        ///private static string connectionString = ConfigurationManager.ConnectionStrings["FoodApp.Properties.Settings.food_app_databaseConnectionString"].ConnectionString;
-        private static string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\georg\OneDrive\Desktop\FoodApp\food-app_database.mdf;Integrated Security=True";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["FoodApp.Properties.Settings.food_app_databaseConnectionString"].ConnectionString;
+        //private static string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\georg\OneDrive\Desktop\FoodApp\food-app_database.mdf;Integrated Security=True";
 
         //connect to database
         public void InitializeDatabaseFile()

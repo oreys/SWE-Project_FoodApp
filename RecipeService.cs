@@ -152,9 +152,12 @@ namespace FoodApp
         public void insertRecipe(Recipe recipe)
         {
             //saves the ID of the new created Recipe for using it in the connectionTables
-            int newRecipeID;
+            int newRecipeID = 0;
+            bool firstInsertSuccess = false;
+            bool insertComplete = true;
+            string errorString = "";
 
-            string query = "INSERT INTO Recipes (recipe_name, short_describtion) VALUES (@newRecipeName, @newDescribtion) select scope_identity()", cons;
+            string query = "INSERT INTO recipes (recipe_name, short_description) VALUES (@newRecipeName, @newDescribtion) select scope_identity()";
             using (connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
             try
@@ -164,69 +167,85 @@ namespace FoodApp
                 command.Parameters.AddWithValue("@newRecipeName", recipe.name);
                 command.Parameters.AddWithValue("@newDescribtion", recipe.description);
 
-                command.ExecuteNonQuery();
-                MessageBox.Show("Records Inserted Successfully");
+                newRecipeID = Convert.ToInt32(command.ExecuteScalar());
+                //MessageBox.Show("Records Inserted Successfully");
+                firstInsertSuccess = true;
             }
             catch (SqlException e)
             {
-                MessageBox.Show("Error Generated. Details: " + e.ToString());
+                //MessageBox.Show("Error Generated. Details: " + e.ToString());
+                errorString += e;
+                insertComplete = false;
             }
             finally
             {
-                newRecipeID = Convert.ToInt32(command.ExecuteScalar());
                 connection.Close();
             }
 
-            foreach (Step step in recipe.steps)
+            if (firstInsertSuccess)
             {
-                query = "INSERT INTO Recipes_Steps (Recipe_ID, Step_Number, Step_Discription) VALUES (@newRecipeID, @newStepNumber, @newStep)";
+                foreach (Step step in recipe.steps)
+                {
+                    query = "INSERT INTO recipe_steps (recipe_ID, step_number, step_description) VALUES (@newRecipeID, @newStepNumber, @newStep)";
 
-                using (connection = new SqlConnection(connectionString))
-                using (SqlCommand command = new SqlCommand(query, connection))
-                try
-                {
-                    connection.Open();
+                    using (connection = new SqlConnection(connectionString))
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    try
+                    {
+                        connection.Open();
 
-                    command.Parameters.AddWithValue("@newRecipeDI", newRecipeID);
-                    command.Parameters.AddWithValue("@newStepNumber", step.number);
-                    command.Parameters.AddWithValue("@newStep", step.description);
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Records Inserted Successfully");
+                        command.Parameters.AddWithValue("@newRecipeID", newRecipeID);
+                        command.Parameters.AddWithValue("@newStepNumber", step.number);
+                        command.Parameters.AddWithValue("@newStep", step.description);
+                        command.ExecuteNonQuery();
+                        //MessageBox.Show("Records Inserted Successfully");
+                    }
+                    catch (SqlException e)
+                    {
+                        //MessageBox.Show("Error Generated. Details: " + e.ToString());
+                        errorString += e;
+                        insertComplete = false;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
-                catch (SqlException e)
-                {
-                    MessageBox.Show("Error Generated. Details: " + e.ToString());
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
 
-            foreach (Ingredient i in recipe.ingredients)
-            {
-                query = "INSERT INTO Recipes_connect (Recipe_ID, Ingredient_ID, Amount, Unit_ID) VALUES (@newRecipeID, @ingredientID, @amount, @unitID)";
+                foreach (Ingredient i in recipe.ingredients)
+                {
+                    query = "INSERT INTO recipe_connect (recipe_ID, ingredient_ID, amount, unit_ID) VALUES (@newRecipeID, @ingredientID, @amount, @unitID)";
 
-                using (connection = new SqlConnection(connectionString))
-                using (SqlCommand command = new SqlCommand(query, connection))
-                try
-                {
-                    connection.Open();
-                    
-                    command.Parameters.AddWithValue("@newRecipeDI", newRecipeID);
-                    command.Parameters.AddWithValue("@ingredientID", i.ID);
-                    command.Parameters.AddWithValue("@amount", i.amount);
-                    command.Parameters.AddWithValue("@unitID", i.unitID);
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Records Inserted Successfully");
-                }
-                catch (SqlException e)
-                {
-                    MessageBox.Show("Error Generated. Details: " + e.ToString());
-                }
-                finally
-                {
-                    connection.Close();
+                    using (connection = new SqlConnection(connectionString))
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    try
+                    {
+                        connection.Open();
+
+                        command.Parameters.AddWithValue("@newRecipeID", newRecipeID);
+                        command.Parameters.AddWithValue("@ingredientID", i.ID);
+                        command.Parameters.AddWithValue("@amount", i.amount);
+                        command.Parameters.AddWithValue("@unitID", i.unitID);
+                        command.ExecuteNonQuery();
+                        //MessageBox.Show("Records Inserted Successfully");
+                    }
+                    catch (SqlException e)
+                    {
+                        //MessageBox.Show("Error Generated. Details: " + e.ToString());
+                        errorString += e;
+                        insertComplete = false;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+
+                    if (insertComplete)
+                    {
+                        MessageBox.Show("Records Inserted Successfully");
+                    } else {
+                        MessageBox.Show("!!something went wrong!!!" + errorString);
+                    }
                 }
             }
         }
