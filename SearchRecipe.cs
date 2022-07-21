@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
@@ -61,6 +63,14 @@ namespace FoodApp
 
         private void btnStartSearch_Click(object sender, System.EventArgs e)
         {
+            List<ComboBox> cbListI = new List<ComboBox>();
+            foreach (ComboBox cbIngredient in cbListI)
+            {
+                Ingredient ingredient = new Ingredient();
+                ingredient.ID = Convert.ToInt32(cbIngredient.SelectedValue);
+                recipeService.enteredIngredients.Add(ingredient);
+            }
+            cbListI = pnlIngredient.Controls.OfType<ComboBox>().ToList();
             recipeService.SearchRecipes(recipeService.enteredIngredients, recipeService.collectedRecipes);
             searchResults1.Visible = true;
 
