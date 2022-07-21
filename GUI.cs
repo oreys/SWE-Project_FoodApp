@@ -26,6 +26,11 @@ namespace FoodApp
             SetAvtivePanel(home1);
         }
 
+        private void GUI_Load(object sender, EventArgs e)
+        {
+            SetAvtivePanel(home1);
+        }
+
         private void btnMenu_Click(object sender, EventArgs e){ }
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
@@ -44,9 +49,9 @@ namespace FoodApp
         }
 
         /// <summary>
-        /// 
+        ///
         /// Sets the Active User Control and disables the other panels.
-        /// 
+        ///
         /// </summary>summary>
         /// <param name="control"></param>
         public void SetAvtivePanel(UserControl control)
