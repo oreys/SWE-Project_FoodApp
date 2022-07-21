@@ -18,6 +18,12 @@ namespace FoodApp
         public GUI()
         {
             InitializeComponent();
+            Load += GUI_Load;
+        }
+
+        private void GUI_Load(object sender, EventArgs e)
+        {
+            SetAvtivePanel(home1);
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
@@ -38,23 +44,35 @@ namespace FoodApp
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
-            home1.Visible = false;
-            //searchRecipe.Visible = false;
-            addNewRecipe1.Visible = true;
+            SetAvtivePanel(addNewRecipe1);
         }
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            home1.Visible = true;
-            //searchRecipe.Visible = false;
-            addNewRecipe1.Visible = false;
+            SetAvtivePanel(home1);
         }
 
         private void btnSerchRecipe_Click(object sender, EventArgs e)
         {
+            //SetAvtivePanel(searchRecipe1);
+        }
+
+        /// <summary>
+        /// 
+        /// Sets the Active User Control and disables the other panels.
+        /// 
+        /// </summary>summary>
+        /// <param name="control"></param>
+        public void SetAvtivePanel(UserControl control)
+        {
+            // DISABLE ALL USEr CONTROLS //
+
             home1.Visible = false;
-            //searchRecipe.Visible = true;
+            //searchRecipe1.Visible = false;
             addNewRecipe1.Visible = false;
+
+            // ENABLE THE ACTIVE CONTROL //
+            control.Visible = true;
         }
     }
 }
