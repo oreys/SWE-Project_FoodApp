@@ -34,6 +34,8 @@
             this.btnSerchRecipe = new System.Windows.Forms.Button();
             this.btnAddRecipe = new System.Windows.Forms.Button();
             this.pnlSite = new System.Windows.Forms.Panel();
+            this.unitsTableAdapter1 = new FoodApp._food_app_databaseDataSetTableAdapters.unitsTableAdapter();
+            this.searchRecipe1 = new FoodApp.SearchRecipe();
             this.home1 = new FoodApp.Home();
             this.addNewRecipe1 = new FoodApp.AddNewRecipe();
             this.pnlMenu.SuspendLayout();
@@ -94,6 +96,7 @@
             // 
             // pnlSite
             // 
+            this.pnlSite.Controls.Add(this.searchRecipe1);
             this.pnlSite.Controls.Add(this.home1);
             this.pnlSite.Controls.Add(this.addNewRecipe1);
             this.pnlSite.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -101,6 +104,18 @@
             this.pnlSite.Name = "pnlSite";
             this.pnlSite.Size = new System.Drawing.Size(978, 744);
             this.pnlSite.TabIndex = 1;
+            // 
+            // unitsTableAdapter1
+            // 
+            this.unitsTableAdapter1.ClearBeforeFill = true;
+            // 
+            // searchRecipe1
+            // 
+            this.searchRecipe1.Location = new System.Drawing.Point(3, 0);
+            this.searchRecipe1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.searchRecipe1.Name = "searchRecipe1";
+            this.searchRecipe1.Size = new System.Drawing.Size(1105, 941);
+            this.searchRecipe1.TabIndex = 2;
             // 
             // home1
             // 
@@ -141,5 +156,7 @@
         private System.Windows.Forms.Panel pnlSite;
         private AddNewRecipe addNewRecipe1;
         private Home home1;
+        private _food_app_databaseDataSetTableAdapters.unitsTableAdapter unitsTableAdapter1;
+        private SearchRecipe searchRecipe1;
     }
 }

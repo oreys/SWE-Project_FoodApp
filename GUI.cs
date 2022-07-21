@@ -26,21 +26,7 @@ namespace FoodApp
             SetAvtivePanel(home1);
         }
 
-        private void btnMenu_Click(object sender, EventArgs e)
-        {
-            if (btnHome.Visible == false)
-            {
-                btnHome.Visible = true;
-                btnSerchRecipe.Visible = true;
-                btnAddRecipe.Visible = true;
-            }
-            else
-            {
-                btnHome.Visible = false;
-                btnSerchRecipe.Visible = false;
-                btnAddRecipe.Visible = false;
-            }
-        }
+        private void btnMenu_Click(object sender, EventArgs e){ }
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
@@ -54,7 +40,7 @@ namespace FoodApp
 
         private void btnSerchRecipe_Click(object sender, EventArgs e)
         {
-            //SetAvtivePanel(searchRecipe1);
+            SetAvtivePanel(searchRecipe1);
         }
 
         /// <summary>
@@ -68,7 +54,7 @@ namespace FoodApp
             // DISABLE ALL USEr CONTROLS //
 
             home1.Visible = false;
-            //searchRecipe1.Visible = false;
+            searchRecipe1.Visible = false;
             addNewRecipe1.Visible = false;
 
             // ENABLE THE ACTIVE CONTROL //
