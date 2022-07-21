@@ -1,6 +1,15 @@
 using System;
-using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Configuration;
 using System.Data.SqlClient;
+using Microsoft.VisualBasic;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 
 namespace FoodApp
@@ -20,6 +29,7 @@ namespace FoodApp
         public string sqlSelectRecipeAndIngredient = "SELECT Recipe_connect.Recipe_ID, Recipe_connect.Ingredient_ID ";
         public string sqlSelectRestOfRecipe = "SELECT ingredients.Ingredient, Recipe_connect.amount, Recipes.recipe_name, Recipes.short_description, Recipe_steps.step_description, Units.unit ";
         public string sqlIngredientNames = "SELECT ingredients.ingredient";
+
         public List<Recipe> GetAllRecipesIDs(List<Recipe> allRecipes)
         {
             using (SqlConnection cn = new SqlConnection(connectionString))
@@ -67,7 +77,7 @@ namespace FoodApp
 
         public List<Recipe> CompleteDataInRecipes(List<Recipe> selectedRecipes)
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(connectionString))  //connection string name????
             {
                 cn.Open();
                 SqlCommand sqlCommand = new SqlCommand(sqlSelectRestOfRecipe + sqlJoinFromString, cn);
@@ -150,14 +160,23 @@ namespace FoodApp
             string query = "INSERT INTO Recipes (recipe_name, short_describtion) VALUES (@newRecipeName, @newDescribtion) select scope_identity()", cons;
             using (connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
+            try
             {
                 connection.Open();
 
                 command.Parameters.AddWithValue("@newRecipeName", recipe.name);
                 command.Parameters.AddWithValue("@newDescribtion", recipe.description);
 
+                command.ExecuteNonQuery();
+                MessageBox.Show("Records Inserted Successfully");
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
                 newRecipeID = Convert.ToInt32(command.ExecuteScalar());
-
                 connection.Close();
             }
 
@@ -167,13 +186,22 @@ namespace FoodApp
 
                 using (connection = new SqlConnection(connectionString))
                 using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
                     connection.Open();
 
                     command.Parameters.AddWithValue("@newRecipeDI", newRecipeID);
                     command.Parameters.AddWithValue("@newStepNumber", step.number);
                     command.Parameters.AddWithValue("@newStep", step.description);
-
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Records Inserted Successfully");
+                }
+                catch (SqlException e)
+                {
+                    MessageBox.Show("Error Generated. Details: " + e.ToString());
+                }
+                finally
+                {
                     connection.Close();
                 }
             }
@@ -184,31 +212,52 @@ namespace FoodApp
 
                 using (connection = new SqlConnection(connectionString))
                 using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
                     connection.Open();
-
+                    
                     command.Parameters.AddWithValue("@newRecipeDI", newRecipeID);
                     command.Parameters.AddWithValue("@ingredientID", i.ID);
                     command.Parameters.AddWithValue("@amount", i.amount);
                     command.Parameters.AddWithValue("@unitID", i.unitID);
-
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Records Inserted Successfully");
+                }
+                catch (SqlException e)
+                {
+                    MessageBox.Show("Error Generated. Details: " + e.ToString());
+                }
+                finally
+                {
                     connection.Close();
                 }
             }
         }
         public void insertIngredient(string newIngredient)
         {
-            string query = "INSERT INTO Ingredients (ingredient) VALUES (@newIngredient)";
+            string query = "INSERT INTO ingredients (ingredient) VALUES (@newIngredient)";
             using (connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-
-                command.Parameters.AddWithValue("@newIngredient", newIngredient);
-
-                connection.Close();
-            }
+                try
+                {
+                    connection.Open();
+                    if (!(string.IsNullOrEmpty(newIngredient)))
+                    {
+                        command.Parameters.AddWithValue("@newIngredient", newIngredient);
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Records Inserted Successfully");
+                    } else {
+                        MessageBox.Show("no Ingredient to insert");
+                    }
+                }
+                catch (SqlException e)
+                {
+                    MessageBox.Show("Error Generated. Details: " + e.ToString());
+                }
+                finally
+                {
+                    connection.Close();
+                }
         }
     }
-
 }
