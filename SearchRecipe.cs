@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -64,14 +65,15 @@ namespace FoodApp
         private void btnStartSearch_Click(object sender, System.EventArgs e)
         {
             List<ComboBox> cbListI = new List<ComboBox>();
+            cbListI = pnlIngredient.Controls.OfType<ComboBox>().ToList();
             foreach (ComboBox cbIngredient in cbListI)
             {
                 Ingredient ingredient = new Ingredient();
                 ingredient.ID = Convert.ToInt32(cbIngredient.SelectedValue);
                 recipeService.enteredIngredients.Add(ingredient);
             }
-            cbListI = pnlIngredient.Controls.OfType<ComboBox>().ToList();
-            recipeService.SearchRecipes(recipeService.enteredIngredients, recipeService.collectedRecipes);
+
+            recipeService.collectedRecipes = recipeService.SearchRecipes(recipeService.enteredIngredients, recipeService.collectedRecipes);
             searchResults1.Visible = true;
 
         }
@@ -97,7 +99,39 @@ namespace FoodApp
 
         private void searchResults1_Load(object sender, System.EventArgs e)
         {
+            DisplayRecipes();
+        }
+        private void DisplayRecipes()
+        {
+            int countR = 0;
+            int countControls = 1;
+            FlowLayoutPanel flowPnl = new FlowLayoutPanel();
 
+            flowPnl.FlowDirection = FlowDirection.TopDown;
+            flowPnl.AutoScroll = true;
+            foreach (Recipe recipe in SearchRecipe.recipeService.collectedRecipes)
+            {
+                Panel gbRecipe = new Panel();
+                Label labelRecipeName = new Label();
+                Label labelRecipeDescription = new Label();
+                gbRecipe.Name = "gbRecipe" + countControls;
+                labelRecipeName.Name = "labelRecipeName" + countControls;
+                labelRecipeDescription.Name = "labelRecipeDescription" + countControls;
+                gbRecipe.MinimumSize = new Size(750, 250);
+                gbRecipe.AutoSize = true;
+                labelRecipeName.Location = new Point(45, 55);
+                labelRecipeDescription.Location = new Point(200, 55);
+                labelRecipeName.MaximumSize = new Size(120, 50);
+                labelRecipeDescription.MaximumSize = new Size(600, 200);
+                labelRecipeName.AutoSize = true;
+                labelRecipeDescription.AutoSize = true;
+                labelRecipeName.Text = SearchRecipe.recipeService.collectedRecipes[countR].name;
+                labelRecipeDescription.Text = SearchRecipe.recipeService.collectedRecipes[countR].description;
+                gbRecipe.Controls.Add(labelRecipeName);
+                gbRecipe.Controls.Add(labelRecipeDescription);
+                flowPnl.Controls.Add(gbRecipe);
+                countR++;
+            }
         }
     }
 }

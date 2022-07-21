@@ -51,7 +51,7 @@ namespace FoodApp
                     Recipe recipe = new Recipe();
                     recipe.id = (int)reader["recipe_ID"];
                     //recipe.ingredients = GetIngredientIDs(allRecipes[countR].ingredients);
-                    //(List<Ingredient>)reader["ingredient_ID"]; //funktioniert das?
+                    //(List<Ingredient>)reader["ingredient_ID"]; 
                     allRecipes.Add(recipe);
 
                 }
