@@ -10,6 +10,7 @@ namespace FoodApp
     {
         public List<Ingredient> enteredIngredients;
         public List<Recipe> collectedRecipes;
+        public Recipe selectedRecipe;
         public SqlConnection connection;
         string connectionString = DatabaseFunctions.getConnectionString();
 

@@ -83,8 +83,8 @@ namespace FoodApp
         {
             var recipeService = new RecipeService();
 
-            //string newIngredient = Interaction.InputBox("Enter your new ingredient", "NewIngredient");
-            // recipeService.insertIngredient(newIngredient);
+            string newIngredient = Interaction.InputBox("Enter your new ingredient", "NewIngredient");
+            recipeService.insertIngredient(newIngredient);
         }
 
 

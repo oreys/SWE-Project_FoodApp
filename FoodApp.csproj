@@ -97,6 +97,12 @@
     <Compile Include="SearchResults.Designer.cs">
       <DependentUpon>SearchResults.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShowRecipe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShowRecipe.Designer.cs">
+      <DependentUpon>ShowRecipe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Step.cs" />
     <EmbeddedResource Include="AddNewRecipe.resx">
       <DependentUpon>AddNewRecipe.cs</DependentUpon>
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SearchResults.resx">
       <DependentUpon>SearchResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShowRecipe.resx">
+      <DependentUpon>ShowRecipe.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

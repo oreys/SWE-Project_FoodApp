@@ -16,15 +16,19 @@ namespace FoodApp
 
         }
 
-
+        private void gbRecipe_Click(object sender, System.EventArgs e, int countR)
+        {
+            SearchRecipe.recipeService.selectedRecipe.id = countR;
+        }
         private void DisplayRecipes()
         {
             int countR = 0;
             int countControls = 1;
             flowPnl.FlowDirection = FlowDirection.TopDown;
+            flowPnl.AutoScroll = true;
             foreach (Recipe recipe in SearchRecipe.recipeService.collectedRecipes)
             {
-                GroupBox gbIngredient = new GroupBox();
+                GroupBox gbRecipe = new GroupBox();
                 Label labelRecipeName = new Label();
                 Label labelRecipeDescription = new Label();
                 gbRecipe.Name = "gbIngredient" + countControls;
@@ -43,8 +47,6 @@ namespace FoodApp
                 gbRecipe.Controls.Add(labelRecipeName);
                 gbRecipe.Controls.Add(labelRecipeDescription);
                 flowPnl.Controls.Add(gbRecipe);
-
-
                 countR++;
             }
         }
