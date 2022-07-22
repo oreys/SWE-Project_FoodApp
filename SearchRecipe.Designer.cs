@@ -33,8 +33,8 @@
             this.cbIngredient = new System.Windows.Forms.ComboBox();
             this.labelSelectIngredient = new System.Windows.Forms.Label();
             this.pnlIngredient = new System.Windows.Forms.Panel();
-            this.searchResults1 = new FoodApp.SearchResults();
             this.labelTest = new System.Windows.Forms.Label();
+            this.searchResults1 = new FoodApp.SearchResults();
             this.pnlIngredient.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,14 +84,6 @@
             this.pnlIngredient.Size = new System.Drawing.Size(338, 38);
             this.pnlIngredient.TabIndex = 4;
             // 
-            // searchResults1
-            // 
-            this.searchResults1.Location = new System.Drawing.Point(356, 167);
-            this.searchResults1.Name = "searchResults1";
-            this.searchResults1.Size = new System.Drawing.Size(869, 595);
-            this.searchResults1.TabIndex = 3;
-            this.searchResults1.Load += new System.EventHandler(this.searchResults1_Load);
-            // 
             // labelTest
             // 
             this.labelTest.AutoSize = true;
@@ -102,12 +94,20 @@
             this.labelTest.Text = "label1";
             this.labelTest.Click += new System.EventHandler(this.labelTest_Click);
             // 
+            // searchResults1
+            // 
+            this.searchResults1.Location = new System.Drawing.Point(0, 0);
+            this.searchResults1.Name = "searchResults1";
+            this.searchResults1.Size = new System.Drawing.Size(869, 595);
+            this.searchResults1.TabIndex = 6;
+            this.searchResults1.Load += new System.EventHandler(this.searchResults1_Load_1);
+            // 
             // SearchRecipe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelTest);
             this.Controls.Add(this.searchResults1);
+            this.Controls.Add(this.labelTest);
             this.Controls.Add(this.labelSelectIngredient);
             this.Controls.Add(this.btnAddOtherIngredient);
             this.Controls.Add(this.btnStartSearch);
@@ -122,11 +122,11 @@
 
         #endregion
         private System.Windows.Forms.Button btnStartSearch;
-        private SearchResults searchResults1;
         private System.Windows.Forms.Button btnAddOtherIngredient;
         private System.Windows.Forms.Label labelSelectIngredient;
         private System.Windows.Forms.ComboBox cbIngredient;
         private System.Windows.Forms.Panel pnlIngredient;
         private System.Windows.Forms.Label labelTest;
+        private SearchResults searchResults1;
     }
 }

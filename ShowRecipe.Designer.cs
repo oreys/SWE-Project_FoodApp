@@ -37,6 +37,7 @@
             this.flowPnlShowRecipe.Name = "flowPnlShowRecipe";
             this.flowPnlShowRecipe.Size = new System.Drawing.Size(825, 564);
             this.flowPnlShowRecipe.TabIndex = 0;
+            this.flowPnlShowRecipe.Paint += new System.Windows.Forms.PaintEventHandler(this.flowPnlShowRecipe_Paint);
             // 
             // ShowRecipe
             // 
