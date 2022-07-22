@@ -18,7 +18,7 @@ namespace FoodApp
 
         public string sqlJoinFromString = @"FROM units INNER JOIN((recipes INNER JOIN (ingredients INNER JOIN recipe_connect ON ingredients.ID = recipe_connect.ingredient_ID) ON recipes.ID = recipe_connect.recipe_ID) INNER JOIN recipe_steps ON recipes.ID = recipe_steps.recipe_ID) ON units.ID = recipe_connect.unit_ID;";
         public string sqlSelectRecipeAndIngredient = "SELECT recipe_connect.recipe_ID, recipe_connect.ingredient_ID ";
-        public string sqlSelectRestOfRecipe = "SELECT ingredients.ingredient, recipe_connect.amount, recipes.recipe_name, recipes.short_description, recipe_steps.step_describtion, units.unit ";
+        public string sqlSelectRestOfRecipe = "SELECT ingredients.ingredient, recipe_connect.amount, recipes.recipe_name, recipes.short_description, recipe_steps.step_description, units.unit ";
         public string sqlIngredientNames = "SELECT ingredients.ingredient ";
 
         public RecipeService()
@@ -128,22 +128,32 @@ namespace FoodApp
             allRecipes = GetAllRecipesIDs(allRecipes);
             List<Recipe> collectedRecipes = new List<Recipe>();
 
-            int i = 0;  //counter for allRecipes[]
+            //bool onlyEnteredIngredientsInRecipe;
             foreach (Recipe recipeInstance in allRecipes)
             {
-                bool onlyEnteredIngredientsInRecipe = true;
-                foreach (Ingredient recipeIngredient in allRecipes[i].ingredients)
+                bool onlyEnteredIngredientsInRecipe = false;
+                foreach (Ingredient recipeIngredient in recipeInstance.ingredients)
                 {
-                    if (!(enteredIngredients.Contains(recipeIngredient)))
+                    onlyEnteredIngredientsInRecipe = false;
+                    for (int i = 0; i < enteredIngredients.Count; i++)
                     {
-                        onlyEnteredIngredientsInRecipe = false;
+                        if (enteredIngredients[i].ID == recipeIngredient.ID)
+                        {
+                            onlyEnteredIngredientsInRecipe = true;
+                            break;
+                        }
+
+                    }
+                    if (onlyEnteredIngredientsInRecipe == false)
+                    {
+                        break;
                     }
                 }
                 if (onlyEnteredIngredientsInRecipe == true)
                 {
                     collectedRecipes.Add(recipeInstance);
                 }
-                i++;
+
 
             }
             return collectedRecipes;
@@ -168,21 +178,23 @@ namespace FoodApp
                 SqlCommand sqlCommand = new SqlCommand(sqlSelectRestOfRecipe + sqlJoinFromString, cn);
                 SqlDataReader reader = sqlCommand.ExecuteReader();
                 int i = 0;  //counter for selectedRecipes[]
-                while (reader.Read())
+                while (reader.Read() && (selectedRecipes.Count > i))
                 {
                     selectedRecipes[i].name = (string)reader["recipe_name"];
                     selectedRecipes[i].description = (string)reader["short_description"];
-                    for (int j = 0; j < selectedRecipes[j].steps.Count; j++)
+                    selectedRecipes[i].steps = new List<Step>();
+                    /*for (int j = 0; j < selectedRecipes[j].steps.Count; j++)
                     {
                         selectedRecipes[i].steps[j].number = (int)reader["step_number"];
                         selectedRecipes[i].steps[j].description = (string)reader["step_describtion"];
                     }
+                    selectedRecipes[i].ingredients = new List<Ingredient>();
                     for (int j = 0; j < selectedRecipes[j].ingredients.Count; j++)
                     {
                         selectedRecipes[i].ingredients[j].name = (string)reader["ingredient"];
                         selectedRecipes[i].ingredients[j].amount = (int)reader["amount"];
                         selectedRecipes[i].ingredients[j].unit = (string)reader["unit"];
-                    }
+                    }*/
 
                     i++;
                 }
