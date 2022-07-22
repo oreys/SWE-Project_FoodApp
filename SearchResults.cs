@@ -28,10 +28,10 @@ namespace FoodApp
             flowPnl.AutoScroll = true;
             foreach (Recipe recipe in SearchRecipe.recipeService.collectedRecipes)
             {
-                GroupBox gbRecipe = new GroupBox();
+                Panel gbRecipe = new Panel();
                 Label labelRecipeName = new Label();
                 Label labelRecipeDescription = new Label();
-                gbRecipe.Name = "gbIngredient" + countControls;
+                gbRecipe.Name = "gbRecipe" + countControls;
                 labelRecipeName.Name = "labelRecipeName" + countControls;
                 labelRecipeDescription.Name = "labelRecipeDescription" + countControls;
                 gbRecipe.MinimumSize = new Size(750, 250);
@@ -51,6 +51,9 @@ namespace FoodApp
             }
         }
 
-
+        private void SearchResults_Load(object sender, EventArgs e)
+        {
+            DisplayRecipes();
+        }
     }
 }

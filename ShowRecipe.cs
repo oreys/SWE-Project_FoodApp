@@ -41,5 +41,10 @@ namespace FoodApp
 
 
         }
+
+        private void flowPnlShowRecipe_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

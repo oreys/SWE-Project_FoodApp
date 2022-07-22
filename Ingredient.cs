@@ -7,5 +7,6 @@
         public int amount;
         public int unitID;
         public string unit;
+        public int recipeID;
     }
 }
