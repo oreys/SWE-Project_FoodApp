@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace FoodApp
 {
@@ -7,13 +8,32 @@ namespace FoodApp
         public ShowRecipe()
         {
             InitializeComponent();
+            Load += ShowRecipe_Load;
         }
-        public void LoadShowRecipe()
+        private int GetIndexFromID(int givenID)
         {
+            int index = 0;
+            for (int i = 0; i < SearchRecipe.recipeService.collectedRecipes.Count; i++)
+            {
+                if (SearchRecipe.recipeService.collectedRecipes[i].id == givenID)
+                {
+                    index = i;
+                    return index;
+                }
+            }
+            throw new ArgumentException(givenID + "could not be found in collected recipes IDs");
+        }
+        //ids überprüfen und index übergeben
+        private void ShowRecipe_Load(object sender, EventArgs e)
+        {
+
+            SearchResults searchResults = new SearchResults();
             flowPnlShowRecipe.FlowDirection = FlowDirection.TopDown;
-            int index = SearchRecipe.recipeService.selectedRecipe.id;//get index of selected recipe for collected recipes
+            int id = searchResults.selectedID;//get index of selected recipe for collected recipes
+            label1.Text = id.ToString();
             Label recipeName = new Label();
             recipeName.AutoSize = true;
+            int index = GetIndexFromID(id);
             recipeName.Text = SearchRecipe.recipeService.collectedRecipes[index].name;
             Label recipeDescription = new Label();
             recipeDescription.AutoSize = true;
@@ -45,6 +65,11 @@ namespace FoodApp
         private void flowPnlShowRecipe_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
         }
     }
 }
