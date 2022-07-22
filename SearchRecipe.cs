@@ -15,8 +15,10 @@ namespace FoodApp
         {
             InitializeComponent();
             Load += cbIngredient_Load;
-            Click += btnRecipeName_Click;
             searchResults1.Visible = false;
+
+            Click += btnRecipeName_Click;
+
             //recipeService.enteredIngredients = recipeService.GetIngredientIDs();//remove again!!!!
             //labelTest.Text = recipeService.enteredIngredients[6].ID.ToString();//same here + label in entwurf
         }
@@ -79,7 +81,7 @@ namespace FoodApp
 
             recipeService.collectedRecipes = recipeService.SearchRecipes(recipeService.enteredIngredients, recipeService.collectedRecipes);
             //Testrezept
-            Recipe TestRecipe = new Recipe();
+            /*Recipe TestRecipe = new Recipe();
             TestRecipe.name = "Wassersuppe";
             TestRecipe.description = "blabla";
             List<Ingredient> testIngredientList = new List<Ingredient>();
@@ -88,7 +90,7 @@ namespace FoodApp
             testIngredient.ID = 1;
             testIngredientList.Add(testIngredient);
             TestRecipe.ingredients = testIngredientList;
-            recipeService.collectedRecipes.Add(TestRecipe);
+            recipeService.collectedRecipes.Add(TestRecipe);*/
             if (recipeService.collectedRecipes.Count == 0)
             {
                 Label warningNoRecipesFound = new Label();
@@ -99,7 +101,9 @@ namespace FoodApp
             }
             else
             {
+
                 searchResults1.Visible = true;
+                Load += searchResults1_Load_1;
             }
 
         }
@@ -167,6 +171,7 @@ namespace FoodApp
 
             // Creating and setting the
             // properties of radio buttons
+
             RadioButton f1 = new RadioButton();
             f1.Location = new Point(3, 3);
             f1.Size = new Size(95, 20);

@@ -27,10 +27,11 @@ namespace FoodApp
             collectedRecipes = new List<Recipe>();
             //selectedRecipe = new Recipe();
         }
+
         public List<Recipe> GetAllRecipesIDs(List<Recipe> allRecipes)
         {
             allRecipes = new List<Recipe>();
-
+            List<Recipe> sortedAllRecipes = new List<Recipe>();
             /*DataTable ingredientsTable = new DataTable();
             SqlConnection connection;
             string connectionString = DatabaseFunctions.getConnectionString();
@@ -53,6 +54,7 @@ namespace FoodApp
                 cn.Open();
                 SqlDataReader reader = sqlCommand.ExecuteReader();
                 int countR = 0;
+                int countI = 0;
                 while (reader.Read())
                 {
                     Recipe recipe = new Recipe();
@@ -62,22 +64,61 @@ namespace FoodApp
                     allRecipes.Add(recipe);
 
                 }
+
+
+
+
                 cn.Close();
+                List<Ingredient> tempIngredients = new List<Ingredient>();
+                tempIngredients = GetIngredientIDs();
                 foreach (Recipe recipe in allRecipes)
                 {
-                    List<Ingredient> tempIngredients = new List<Ingredient>();
-                    tempIngredients = GetIngredientIDs();
-                    allRecipes[countR].ingredients = new List<Ingredient>();
+                    recipe.ingredients = new List<Ingredient>();
                     foreach (Ingredient tempIngredient in tempIngredients)
                     {
                         Ingredient ingredient = new Ingredient();
                         ingredient.ID = tempIngredient.ID;
-                        allRecipes[countR].ingredients.Add(ingredient);//throws exception: igredient  = null reference
+                        ingredient.recipeID = tempIngredient.recipeID;
+                        if (ingredient.recipeID == recipe.id)
+                        {
+                            recipe.ingredients.Add(ingredient);
+                        }
+
                     }
                     countR++;
+
                 }
 
             }
+
+            /*for (int i = 0; i < allRecipes.Count; i++)
+            {
+                for (int j = 1; j < allRecipes.Count; j++)
+                {
+                    if (allRecipes[i].id == allRecipes[j].id)
+                    {
+                        //for (int k = 0; k < allRecipes[j].ingredients.Count; k++)
+                        //{
+                        allRecipes[i].ingredients.Add(allRecipes[j].ingredients[0]);
+                        allRecipes.Remove(allRecipes[j]);
+                        // }
+
+                    }
+
+                }
+            }*/
+
+            for (int i = 0; i < allRecipes.Count; i++)
+            {
+                for (int j = 1; j < allRecipes.Count; j++)
+                {
+                    if (allRecipes[i].id == allRecipes[j].id)
+                    {
+                        allRecipes.Remove(allRecipes[j]);
+                    }
+                }
+            }
+
             return allRecipes;
 
         }
@@ -86,10 +127,11 @@ namespace FoodApp
             List<Recipe> allRecipes = new List<Recipe>();
             allRecipes = GetAllRecipesIDs(allRecipes);
             List<Recipe> collectedRecipes = new List<Recipe>();
-            bool onlyEnteredIngredientsInRecipe = true;
+
             int i = 0;  //counter for allRecipes[]
             foreach (Recipe recipeInstance in allRecipes)
             {
+                bool onlyEnteredIngredientsInRecipe = true;
                 foreach (Ingredient recipeIngredient in allRecipes[i].ingredients)
                 {
                     if (!(enteredIngredients.Contains(recipeIngredient)))
@@ -160,7 +202,7 @@ namespace FoodApp
 
         public List<Ingredient> GetIngredientIDs()
         {
-            List<Ingredient> allIngredients = new List<Ingredient>();
+            List<Ingredient> RecipeIngredients = new List<Ingredient>();
             using (SqlConnection cn = new SqlConnection(connectionString))
             {
                 cn.Open();
@@ -170,11 +212,22 @@ namespace FoodApp
                 {
                     Ingredient ingredient = new Ingredient();
                     ingredient.ID = (int)reader["ingredient_ID"];
-                    allIngredients.Add(ingredient);
+                    ingredient.recipeID = (int)reader["recipe_ID"];
+                    RecipeIngredients.Add(ingredient);
                 }
                 cn.Close();
             }
-            return allIngredients;
+            for (int i = 0; i < RecipeIngredients.Count; i++)
+            {
+                for (int j = 1; j < RecipeIngredients.Count; j++)
+                {
+                    if ((RecipeIngredients[i].recipeID == RecipeIngredients[j].recipeID) && (RecipeIngredients[i].ID == RecipeIngredients[j].ID))
+                    {
+                        RecipeIngredients.Remove(RecipeIngredients[j]);
+                    }
+                }
+            }
+            return RecipeIngredients;
         }
 
         public DataTable GetIngredientsFromDatabase()

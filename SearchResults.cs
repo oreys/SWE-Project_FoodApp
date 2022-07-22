@@ -53,7 +53,7 @@ namespace FoodApp
 
         private void SearchResults_Load(object sender, EventArgs e)
         {
-
+            DisplayRecipes();
         }
     }
 }

@@ -96,7 +96,7 @@
             // 
             // searchResults1
             // 
-            this.searchResults1.Location = new System.Drawing.Point(0, 0);
+            this.searchResults1.Location = new System.Drawing.Point(3, 0);
             this.searchResults1.Name = "searchResults1";
             this.searchResults1.Size = new System.Drawing.Size(869, 595);
             this.searchResults1.TabIndex = 6;
