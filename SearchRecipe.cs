@@ -15,7 +15,11 @@ namespace FoodApp
         {
             InitializeComponent();
             Load += cbIngredient_Load;
+            Load += showRecipe1_Load;
+            Click += btnRecipeName_Click;
             searchResults1.Visible = false;
+            //recipeService.enteredIngredients = recipeService.GetIngredientIDs();//remove again!!!!
+            //labelTest.Text = recipeService.enteredIngredients[6].ID.ToString();//same here + label in entwurf
         }
 
 
@@ -70,11 +74,20 @@ namespace FoodApp
             {
                 Ingredient ingredient = new Ingredient();
                 ingredient.ID = Convert.ToInt32(cbIngredient.SelectedValue);
+
                 recipeService.enteredIngredients.Add(ingredient);
             }
 
             recipeService.collectedRecipes = recipeService.SearchRecipes(recipeService.enteredIngredients, recipeService.collectedRecipes);
-            searchResults1.Visible = true;
+            if (recipeService.collectedRecipes.Count == 0)
+            {
+                Label warningNoRecipesFound = new Label();
+                warningNoRecipesFound.AutoSize = true;
+                warningNoRecipesFound.Text = "No recipes found!";
+                warningNoRecipesFound.Location = new Point(200, 15);
+                this.Controls.Add(warningNoRecipesFound);
+            }
+            else { searchResults1.Visible = true; }
 
         }
 
@@ -101,37 +114,67 @@ namespace FoodApp
         {
             DisplayRecipes();
         }
+        private void btnRecipeName_Click(object sender, System.EventArgs e)
+        {
+            //showRecipe1.Visible = true
+        }
+        private void showRecipe1_Load(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void ShowRecipe()
+        {
+            //flowPnlShowRecipe
+            Label recipeName = new Label();
+            recipeName.AutoSize = true;
+            // recipeName.Text = recipeService.collectedRecipes
+            Label recipeShortDescription = new Label();
+            recipeShortDescription.AutoSize = true;
+            Label recipeIngredients = new Label();
+            recipeIngredients.AutoSize = true;
+            Label recipeSteps = new Label();
+            recipeSteps.AutoSize = true;
+
+
+        }
         private void DisplayRecipes()
         {
             int countR = 0;
             int countControls = 1;
             FlowLayoutPanel flowPnl = new FlowLayoutPanel();
-
+            // flowPnl.Size = new Size();
             flowPnl.FlowDirection = FlowDirection.TopDown;
             flowPnl.AutoScroll = true;
             foreach (Recipe recipe in SearchRecipe.recipeService.collectedRecipes)
             {
-                Panel gbRecipe = new Panel();
-                Label labelRecipeName = new Label();
+                Panel pnlRecipe = new Panel();
+                Button btnRecipeName = new Button();
                 Label labelRecipeDescription = new Label();
-                gbRecipe.Name = "gbRecipe" + countControls;
-                labelRecipeName.Name = "labelRecipeName" + countControls;
+                pnlRecipe.Name = "pnlRecipe" + countControls;
+                btnRecipeName.Name = "labelRecipeName" + countControls;
                 labelRecipeDescription.Name = "labelRecipeDescription" + countControls;
-                gbRecipe.MinimumSize = new Size(750, 250);
-                gbRecipe.AutoSize = true;
-                labelRecipeName.Location = new Point(45, 55);
+                pnlRecipe.MinimumSize = new Size(750, 250);
+                pnlRecipe.AutoSize = true;
+                btnRecipeName.Location = new Point(45, 55);
                 labelRecipeDescription.Location = new Point(200, 55);
-                labelRecipeName.MaximumSize = new Size(120, 50);
+                btnRecipeName.MaximumSize = new Size(120, 50);
                 labelRecipeDescription.MaximumSize = new Size(600, 200);
-                labelRecipeName.AutoSize = true;
+                btnRecipeName.AutoSize = true;
                 labelRecipeDescription.AutoSize = true;
-                labelRecipeName.Text = SearchRecipe.recipeService.collectedRecipes[countR].name;
+                btnRecipeName.Text = SearchRecipe.recipeService.collectedRecipes[countR].name;
                 labelRecipeDescription.Text = SearchRecipe.recipeService.collectedRecipes[countR].description;
-                gbRecipe.Controls.Add(labelRecipeName);
-                gbRecipe.Controls.Add(labelRecipeDescription);
-                flowPnl.Controls.Add(gbRecipe);
+                pnlRecipe.Controls.Add(btnRecipeName);
+                pnlRecipe.Controls.Add(labelRecipeDescription);
+                flowPnl.Controls.Add(pnlRecipe);
                 countR++;
             }
+            //when btnrecipenamepanel click 
+        }
+
+        private void labelTest_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

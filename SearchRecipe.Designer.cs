@@ -34,6 +34,7 @@
             this.labelSelectIngredient = new System.Windows.Forms.Label();
             this.pnlIngredient = new System.Windows.Forms.Panel();
             this.searchResults1 = new FoodApp.SearchResults();
+            this.labelTest = new System.Windows.Forms.Label();
             this.pnlIngredient.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,16 +86,27 @@
             // 
             // searchResults1
             // 
-            this.searchResults1.Location = new System.Drawing.Point(0, 0);
+            this.searchResults1.Location = new System.Drawing.Point(356, 167);
             this.searchResults1.Name = "searchResults1";
             this.searchResults1.Size = new System.Drawing.Size(869, 595);
             this.searchResults1.TabIndex = 3;
             this.searchResults1.Load += new System.EventHandler(this.searchResults1_Load);
             // 
+            // labelTest
+            // 
+            this.labelTest.AutoSize = true;
+            this.labelTest.Location = new System.Drawing.Point(79, 136);
+            this.labelTest.Name = "labelTest";
+            this.labelTest.Size = new System.Drawing.Size(44, 16);
+            this.labelTest.TabIndex = 5;
+            this.labelTest.Text = "label1";
+            this.labelTest.Click += new System.EventHandler(this.labelTest_Click);
+            // 
             // SearchRecipe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelTest);
             this.Controls.Add(this.searchResults1);
             this.Controls.Add(this.labelSelectIngredient);
             this.Controls.Add(this.btnAddOtherIngredient);
@@ -115,5 +127,6 @@
         private System.Windows.Forms.Label labelSelectIngredient;
         private System.Windows.Forms.ComboBox cbIngredient;
         private System.Windows.Forms.Panel pnlIngredient;
+        private System.Windows.Forms.Label labelTest;
     }
 }

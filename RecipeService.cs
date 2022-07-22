@@ -18,11 +18,19 @@ namespace FoodApp
 
         public string sqlJoinFromString = @"FROM units INNER JOIN((recipes INNER JOIN (ingredients INNER JOIN recipe_connect ON ingredients.ID = recipe_connect.ingredient_ID) ON recipes.ID = recipe_connect.recipe_ID) INNER JOIN recipe_steps ON recipes.ID = recipe_steps.recipe_ID) ON units.ID = recipe_connect.unit_ID;";
         public string sqlSelectRecipeAndIngredient = "SELECT recipe_connect.recipe_ID, recipe_connect.ingredient_ID ";
-        public string sqlSelectRestOfRecipe = "SELECT ingredients.ingredient, recipe_connect.amount, recipes.recipe_name, recipes.short_description, recipe_steps.step_description, units.unit ";
+        public string sqlSelectRestOfRecipe = "SELECT ingredients.ingredient, recipe_connect.amount, recipes.recipe_name, recipes.short_description, recipe_steps.step_describtion, units.unit ";
         public string sqlIngredientNames = "SELECT ingredients.ingredient ";
 
+        public RecipeService()
+        {
+            enteredIngredients = new List<Ingredient>();
+            collectedRecipes = new List<Recipe>();
+            //selectedRecipe = new Recipe();
+        }
         public List<Recipe> GetAllRecipesIDs(List<Recipe> allRecipes)
         {
+            allRecipes = new List<Recipe>();
+
             /*DataTable ingredientsTable = new DataTable();
             SqlConnection connection;
             string connectionString = DatabaseFunctions.getConnectionString();
@@ -45,7 +53,6 @@ namespace FoodApp
                 cn.Open();
                 SqlDataReader reader = sqlCommand.ExecuteReader();
                 int countR = 0;
-                int countI = 0;
                 while (reader.Read())
                 {
                     Recipe recipe = new Recipe();
@@ -58,14 +65,14 @@ namespace FoodApp
                 cn.Close();
                 foreach (Recipe recipe in allRecipes)
                 {
-                    List<Ingredient> tempIngredients = GetIngredientIDs();
-
+                    List<Ingredient> tempIngredients = new List<Ingredient>();
+                    tempIngredients = GetIngredientIDs();
+                    allRecipes[countR].ingredients = new List<Ingredient>();
                     foreach (Ingredient tempIngredient in tempIngredients)
                     {
                         Ingredient ingredient = new Ingredient();
-                        ingredient.ID = tempIngredients[countI].ID;
+                        ingredient.ID = tempIngredient.ID;
                         allRecipes[countR].ingredients.Add(ingredient);//throws exception: igredient  = null reference
-                        countI++;
                     }
                     countR++;
                 }
@@ -102,6 +109,17 @@ namespace FoodApp
 
         public List<Recipe> CompleteDataInRecipes(List<Recipe> selectedRecipes)
         {
+            try
+            {
+                if (selectedRecipes.Count == 0)
+                {
+                    throw new InvalidOperationException("No suitable Recipes Found!");
+                }
+            }
+            catch (InvalidOperationException RecipeListIsEmpty)
+            {
+                return selectedRecipes;
+            }
             using (SqlConnection cn = new SqlConnection(connectionString))
             {
                 cn.Open();
@@ -115,7 +133,7 @@ namespace FoodApp
                     for (int j = 0; j < selectedRecipes[j].steps.Count; j++)
                     {
                         selectedRecipes[i].steps[j].number = (int)reader["step_number"];
-                        selectedRecipes[i].steps[j].description = (string)reader["step_description"];
+                        selectedRecipes[i].steps[j].description = (string)reader["step_describtion"];
                     }
                     for (int j = 0; j < selectedRecipes[j].ingredients.Count; j++)
                     {
