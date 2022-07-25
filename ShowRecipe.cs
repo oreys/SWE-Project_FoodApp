@@ -2,12 +2,18 @@
 
 namespace FoodApp
 {
+    /// <summary>
+    /// Is part of the GUI and shows the clicked recipe.
+    /// </summary>
     public partial class ShowRecipe : UserControl
     {
         public ShowRecipe()
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// Loads the view for the selected recipe.
+        /// </summary>
         public void LoadShowRecipe()
         {
             flowPnlShowRecipe.FlowDirection = FlowDirection.TopDown;

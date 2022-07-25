@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace FoodApp
 {
+    /// <summary>
+    /// Is part of the GUI and shows the view for searching for recipes.
+    /// </summary>
     public partial class SearchRecipe : UserControl
     {
         public static RecipeService recipeService = new RecipeService();
@@ -23,7 +26,10 @@ namespace FoodApp
             //labelTest.Text = recipeService.enteredIngredients[6].ID.ToString();//same here + label in entwurf
         }
 
-
+        /// <summary>
+        /// Gets all data related to ingredients and stores them in a datatable.
+        /// </summary>
+        /// <returns>DataTable</returns>
         private DataTable getIngredientsTable()
         {
             DataTable ingredientsTable = new DataTable();
@@ -50,21 +56,6 @@ namespace FoodApp
         }
         private void cbIngredient_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            /*string selectedIngredient = (string)cbIngredient.SelectedItem;
-            int count = 0;
-            int resultIndex = -1;
-            resultIndex = cbIngredient.FindStringExact(selectedIngredient);
-            while (resultIndex != -1)
-            {
-                recipeService.enteredIngredients[count].name = selectedIngredient;
-                recipeService.enteredIngredients[count].ID = resultIndex;
-                this.labelEnteredIngredients.Text += selectedIngredient + "\r\n";
-                cbIngredient.Items.RemoveAt(resultIndex);
-                count += 1;
-                resultIndex = cbIngredient.FindStringExact(selectedIngredient, resultIndex);
-
-            }*/
-
         }
 
         private void btnStartSearch_Click(object sender, System.EventArgs e)
@@ -136,7 +127,9 @@ namespace FoodApp
             //showRecipe1.Visible = true;
         }
 
-
+        /// <summary>
+        /// Shows the selected recipe.
+        /// </summary>
         private void ShowRecipe()
         {
             //flowPnlShowRecipe
@@ -149,9 +142,9 @@ namespace FoodApp
             recipeIngredients.AutoSize = true;
             Label recipeSteps = new Label();
             recipeSteps.AutoSize = true;
-
-
         }
+
+
         private void DisplayRecipes()
         {
             // Creating and setting the
