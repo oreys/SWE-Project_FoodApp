@@ -53,11 +53,12 @@
             // 
             // showRecipe1
             // 
-            this.showRecipe1.Location = new System.Drawing.Point(0, 0);
+            this.showRecipe1.Location = new System.Drawing.Point(3, 3);
             this.showRecipe1.Name = "showRecipe1";
             this.showRecipe1.Size = new System.Drawing.Size(869, 595);
             this.showRecipe1.TabIndex = 3;
             this.showRecipe1.Visible = false;
+            this.showRecipe1.Load += new System.EventHandler(this.showRecipe1_Load);
             // 
             // SearchResults
             // 

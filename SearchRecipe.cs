@@ -80,17 +80,6 @@ namespace FoodApp
             }
 
             recipeService.collectedRecipes = recipeService.SearchRecipes(recipeService.enteredIngredients, recipeService.collectedRecipes);
-            //Testrezept
-            /*Recipe TestRecipe = new Recipe();
-            TestRecipe.name = "Wassersuppe";
-            TestRecipe.description = "blabla";
-            List<Ingredient> testIngredientList = new List<Ingredient>();
-            Ingredient testIngredient = new Ingredient();
-            testIngredient.name = "Wasser";
-            testIngredient.ID = 1;
-            testIngredientList.Add(testIngredient);
-            TestRecipe.ingredients = testIngredientList;
-            recipeService.collectedRecipes.Add(TestRecipe);*/
             if (recipeService.collectedRecipes.Count == 0)
             {
                 Label warningNoRecipesFound = new Label();

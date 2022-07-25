@@ -64,7 +64,9 @@ namespace FoodApp
             if (lbl != null)
             {
                 selectedID = Convert.ToInt32(lbl.Name);
+                showRecipe1.id = selectedID;
                 showRecipe1.Visible = true;
+
             }
         }
 
@@ -76,6 +78,11 @@ namespace FoodApp
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Visible = false;
+        }
+
+        private void showRecipe1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

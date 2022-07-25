@@ -5,6 +5,7 @@ namespace FoodApp
 {
     public partial class ShowRecipe : UserControl
     {
+        public int id;
         public ShowRecipe()
         {
             InitializeComponent();
@@ -23,14 +24,12 @@ namespace FoodApp
             }
             throw new ArgumentException(givenID + " could not be found in collected recipes IDs");
         }
-        //ids überprüfen und index übergeben
+
         private void ShowRecipe_Load(object sender, EventArgs e)
         {
 
             SearchResults searchResults = new SearchResults();
             flowPnlShowRecipe.FlowDirection = FlowDirection.TopDown;
-            int id = searchResults.selectedID;//get index of selected recipe for collected recipes
-            label1.Text = id.ToString();
             Label recipeName = new Label();
             recipeName.AutoSize = true;
             int index = GetIndexFromID(id);
@@ -51,13 +50,18 @@ namespace FoodApp
 
             Label steps = new Label();
             steps.AutoSize = true;
-            int countS = 0; // counter for ingredients
+            int countS = 0; // counter for steps
             foreach (Step step in SearchRecipe.recipeService.collectedRecipes[index].steps)
             {
                 steps.Text += SearchRecipe.recipeService.collectedRecipes[index].steps[countS].number + ". ";
                 steps.Text += SearchRecipe.recipeService.collectedRecipes[index].steps[countS].description + "\r\n";
                 countS++;
             }
+            flowPnlShowRecipe.Controls.Add(recipeName);
+            flowPnlShowRecipe.Controls.Add(recipeDescription);
+            flowPnlShowRecipe.Controls.Add(ingredients);
+            flowPnlShowRecipe.Controls.Add(steps);
+            this.Controls.Add(flowPnlShowRecipe);
 
 
         }
