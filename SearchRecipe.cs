@@ -80,17 +80,6 @@ namespace FoodApp
             }
 
             recipeService.collectedRecipes = recipeService.SearchRecipes(recipeService.enteredIngredients, recipeService.collectedRecipes);
-            //Testrezept
-            /*Recipe TestRecipe = new Recipe();
-            TestRecipe.name = "Wassersuppe";
-            TestRecipe.description = "blabla";
-            List<Ingredient> testIngredientList = new List<Ingredient>();
-            Ingredient testIngredient = new Ingredient();
-            testIngredient.name = "Wasser";
-            testIngredient.ID = 1;
-            testIngredientList.Add(testIngredient);
-            TestRecipe.ingredients = testIngredientList;
-            recipeService.collectedRecipes.Add(TestRecipe);*/
             if (recipeService.collectedRecipes.Count == 0)
             {
                 Label warningNoRecipesFound = new Label();
@@ -154,76 +143,7 @@ namespace FoodApp
         }
         private void DisplayRecipes()
         {
-            // Creating and setting the
-            // properties of FlowLayoutPanel
-            FlowLayoutPanel fl = new FlowLayoutPanel();
-            fl.Location = new Point(380, 124);
-            fl.Size = new Size(216, 57);
-            fl.Name = "Myflowpanel";
-            fl.Font = new Font("Calibri", 12);
-            fl.FlowDirection = FlowDirection.RightToLeft;
-            fl.BorderStyle = BorderStyle.Fixed3D;
-            fl.ForeColor = Color.BlueViolet;
-            fl.Visible = true;
 
-            // Adding this control to the form
-            this.Controls.Add(fl);
-
-            // Creating and setting the
-            // properties of radio buttons
-
-            RadioButton f1 = new RadioButton();
-            f1.Location = new Point(3, 3);
-            f1.Size = new Size(95, 20);
-            f1.Text = "R1";
-
-            // Adding this control
-            // to the FlowLayoutPanel
-            fl.Controls.Add(f1);
-            /*int countR = 0;
-            int countControls = 1;
-            FlowLayoutPanel flowPnl = new FlowLayoutPanel();
-            flowPnl.Location = new Point(0, 0);
-            flowPnl.Visible = true;
-            flowPnl.Dock = DockStyle.Fill;
-            flowPnl.FlowDirection = FlowDirection.TopDown;
-            flowPnl.AutoScroll = true;
-            this.Controls.Add(flowPnl);
-            //testButton
-            Button testButton = new Button();
-            testButton.Size = new Size(50, 50);
-            testButton.Text = "Test";
-            flowPnl.Controls.Add(testButton);*/
-            /*foreach (Recipe recipe in SearchRecipe.recipeService.collectedRecipes)
-            {
-                Panel pnlRecipe = new Panel();
-                Button btnRecipeName = new Button();
-                Label labelRecipeDescription = new Label();
-                pnlRecipe.AutoSize = true;
-                btnRecipeName.Visible = true;
-                pnlRecipe.Visible = true;
-                pnlRecipe.Name = "pnlRecipe" + countControls;
-                btnRecipeName.Name = "labelRecipeName" + countControls;
-                labelRecipeDescription.Name = "labelRecipeDescription" + countControls;
-                pnlRecipe.MinimumSize = new Size(750, 250);
-
-                btnRecipeName.Location = new Point(45, 55);
-                labelRecipeDescription.Location = new Point(200, 55);
-                btnRecipeName.MaximumSize = new Size(120, 50);
-                labelRecipeDescription.MaximumSize = new Size(600, 200);
-                btnRecipeName.AutoSize = true;
-                labelRecipeDescription.AutoSize = true;
-                btnRecipeName.Text = SearchRecipe.recipeService.collectedRecipes[countR].name;
-                labelRecipeDescription.Text = SearchRecipe.recipeService.collectedRecipes[countR].description;
-
-                pnlRecipe.Controls.Add(btnRecipeName);
-                pnlRecipe.Controls.Add(labelRecipeDescription);
-                flowPnl.Controls.Add(pnlRecipe);
-                countR++;
-                countControls++;
-            }
-            */
-            //when btnrecipenamepanel click 
         }
 
         private void labelTest_Click(object sender, EventArgs e)
@@ -233,8 +153,6 @@ namespace FoodApp
 
         private void searchResults1_Load_1(object sender, EventArgs e)
         {
-            searchResults1.Show();
-            DisplayRecipes();
         }
     }
 }

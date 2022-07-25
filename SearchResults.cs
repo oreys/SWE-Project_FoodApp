@@ -6,9 +6,11 @@ namespace FoodApp
 {
     public partial class SearchResults : UserControl
     {
+        public int selectedID;
         public SearchResults()
         {
             InitializeComponent();
+
         }
 
         private void gbRecipe_Enter(object sender, EventArgs e)
@@ -20,6 +22,7 @@ namespace FoodApp
         {
             SearchRecipe.recipeService.selectedRecipe.id = countR;
         }
+
         private void DisplayRecipes()
         {
             int countR = 0;
@@ -32,7 +35,7 @@ namespace FoodApp
                 Label labelRecipeName = new Label();
                 Label labelRecipeDescription = new Label();
                 gbRecipe.Name = "gbRecipe" + countControls;
-                labelRecipeName.Name = "labelRecipeName" + countControls;
+                labelRecipeName.Name = recipe.id.ToString();
                 labelRecipeDescription.Name = "labelRecipeDescription" + countControls;
                 gbRecipe.MinimumSize = new Size(750, 250);
                 gbRecipe.AutoSize = true;
@@ -44,6 +47,7 @@ namespace FoodApp
                 labelRecipeDescription.AutoSize = true;
                 labelRecipeName.Text = SearchRecipe.recipeService.collectedRecipes[countR].name;
                 labelRecipeDescription.Text = SearchRecipe.recipeService.collectedRecipes[countR].description;
+                labelRecipeName.Click += new EventHandler(lbl_Click);
                 gbRecipe.Controls.Add(labelRecipeName);
                 gbRecipe.Controls.Add(labelRecipeDescription);
                 flowPnl.Controls.Add(gbRecipe);
@@ -51,9 +55,34 @@ namespace FoodApp
             }
         }
 
+        protected void lbl_Click(object sender, EventArgs e)
+        {
+            //attempt to cast the sender as a label
+            Label lbl = sender as Label;
+
+            //if the cast was successful (i.e. not null), navigate to the site
+            if (lbl != null)
+            {
+                selectedID = Convert.ToInt32(lbl.Name);
+                showRecipe1.id = selectedID;
+                showRecipe1.Visible = true;
+
+            }
+        }
+
         private void SearchResults_Load(object sender, EventArgs e)
         {
             DisplayRecipes();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+        }
+
+        private void showRecipe1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
