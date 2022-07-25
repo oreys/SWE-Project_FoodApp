@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Drawing;
 using System.Windows.Forms;
-using System.Configuration;
-using System.Data.SqlClient;
-using Microsoft.VisualBasic;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace FoodApp
 {
+    /// <summary>
+    /// Is the main part of the app for user interaction.
+    /// </summary>
     public partial class GUI : Form
     {
+
         public GUI()
         {
             InitializeComponent();
@@ -26,7 +20,7 @@ namespace FoodApp
             SetAvtivePanel(home1);
         }
 
-        private void btnMenu_Click(object sender, EventArgs e){ }
+        private void btnMenu_Click(object sender, EventArgs e) { }
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
