@@ -21,7 +21,7 @@ namespace FoodApp
                     return index;
                 }
             }
-            throw new ArgumentException(givenID + "could not be found in collected recipes IDs");
+            throw new ArgumentException(givenID + " could not be found in collected recipes IDs");
         }
         //ids überprüfen und index übergeben
         private void ShowRecipe_Load(object sender, EventArgs e)
