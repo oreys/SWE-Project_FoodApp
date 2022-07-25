@@ -79,5 +79,25 @@ namespace FoodApp.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] test_database {
+            get {
+                object obj = ResourceManager.GetObject("test_database", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] test_database_log {
+            get {
+                object obj = ResourceManager.GetObject("test_database_log", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

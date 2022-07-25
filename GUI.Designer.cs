@@ -34,10 +34,10 @@
             this.btnSerchRecipe = new System.Windows.Forms.Button();
             this.btnAddRecipe = new System.Windows.Forms.Button();
             this.pnlSite = new System.Windows.Forms.Panel();
-            this.unitsTableAdapter1 = new FoodApp._food_app_databaseDataSetTableAdapters.unitsTableAdapter();
             this.searchRecipe1 = new FoodApp.SearchRecipe();
             this.home1 = new FoodApp.Home();
             this.addNewRecipe1 = new FoodApp.AddNewRecipe();
+            this.unitsTableAdapter1 = new FoodApp._food_app_databaseDataSetTableAdapters.unitsTableAdapter();
             this.pnlMenu.SuspendLayout();
             this.pnlSite.SuspendLayout();
             this.SuspendLayout();
@@ -105,10 +105,6 @@
             this.pnlSite.Size = new System.Drawing.Size(978, 744);
             this.pnlSite.TabIndex = 1;
             // 
-            // unitsTableAdapter1
-            // 
-            this.unitsTableAdapter1.ClearBeforeFill = true;
-            // 
             // searchRecipe1
             // 
             this.searchRecipe1.Location = new System.Drawing.Point(3, 0);
@@ -130,6 +126,10 @@
             this.addNewRecipe1.Name = "addNewRecipe1";
             this.addNewRecipe1.Size = new System.Drawing.Size(978, 744);
             this.addNewRecipe1.TabIndex = 0;
+            // 
+            // unitsTableAdapter1
+            // 
+            this.unitsTableAdapter1.ClearBeforeFill = true;
             // 
             // GUI
             // 
