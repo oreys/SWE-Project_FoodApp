@@ -25,7 +25,5 @@ namespace FoodApp
         public List<Step> steps;
         /// Represents list of \ref Ingredient "ingredients" of a recipe.
         public List<Ingredient> ingredients;
-
-
     }
 }

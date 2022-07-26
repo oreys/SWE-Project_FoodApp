@@ -187,26 +187,84 @@ namespace FoodApp
                 {
                     selectedRecipes[i].name = (string)reader["recipe_name"];
                     selectedRecipes[i].description = (string)reader["short_description"];
-                    selectedRecipes[i].steps = new List<Step>();
-
-                    /*for (int j = 0; j < selectedRecipes[j].steps.Count; j++)
-                    {
-                        selectedRecipes[i].steps[j].number = (int)reader["step_number"];
-                        selectedRecipes[i].steps[j].description = (string)reader["step_description"];
-                    }
-                    selectedRecipes[i].ingredients = new List<Ingredient>();
-                    for (int j = 0; j < selectedRecipes[j].ingredients.Count; j++)
-                    {
-                        selectedRecipes[i].ingredients[j].name = (string)reader["ingredient"];
-                        selectedRecipes[i].ingredients[j].amount = (int)reader["amount"];
-                        selectedRecipes[i].ingredients[j].unit = (string)reader["unit"];
-                    }*/
+                    int tempRecipeID = selectedRecipes[i].id;
+                    selectedRecipes[i].steps = getStepsToRecipe(tempRecipeID);
+                    selectedRecipes[i].ingredients = getIngredientsToRecipe(tempRecipeID);
 
                     i++;
                 }
                 cn.Close();
             }
             return selectedRecipes;
+        }
+
+        public List<Step> getStepsToRecipe(int recipeID)
+        {
+            DataTable steps = new DataTable();
+            List<Step> stepList = new List<Step>();
+            SqlConnection connection;
+            string connectionString = DatabaseFunctions.getConnectionString();
+
+            //extract Ingredients
+            string query = "SELECT step_number, step_description FROM recipe_steps WHERE recipe_ID = @recipeID";
+
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+                connection.Open();
+
+                command.Parameters.Add("@recipeID", recipeID);
+                adapter.Fill(steps);
+
+                connection.Close();
+            }
+
+            foreach (DataRow row in steps.Rows)
+            {
+                Step step = new Step();
+                step.number = Convert.ToInt32(row["step_number"]);
+                step.description = (row["step_description"].ToString());
+
+                stepList.Add(step);
+            }
+
+            return stepList;
+        }
+
+        public List<Ingredient> getIngredientsToRecipe(int recipeID)
+        {
+            DataTable ingredients = new DataTable();
+            List<Ingredient> ingredientList = new List<Ingredient>();
+            SqlConnection connection;
+            string connectionString = DatabaseFunctions.getConnectionString();
+
+            //extract Ingredients
+            string query = "SELECT ingredients.ingredient, recipe_connect.amount, units.unit FROM units INNER JOIN (ingredients INNER JOIN recipe_connect on ingredients.ID = recipe_connect.ingredient_ID) ON units.ID = recipe_connect.unit_ID WHERE recipe_ID = @recipeID";
+
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+                connection.Open();
+
+                command.Parameters.Add("@recipeID", recipeID);
+                adapter.Fill(ingredients);
+
+                connection.Close();
+            }
+
+            foreach (DataRow row in ingredients.Rows)
+            {
+                Ingredient ingredient = new Ingredient();
+                ingredient.name = (row["ingredient"].ToString());
+                ingredient.amount = Convert.ToInt32(row["amount"]);
+                ingredient.unit = (row["unit"].ToString());
+
+                ingredientList.Add(ingredient);
+            }
+
+            return ingredientList;
         }
 
         /// <summary>
