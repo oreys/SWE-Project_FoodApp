@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-
-
 namespace FoodApp
 {
     /// <summary>
@@ -198,6 +191,11 @@ namespace FoodApp
             return selectedRecipes;
         }
 
+        /// <summary>
+        /// Collects all data related to a step from the database and collects them in a list.
+        /// </summary>
+        /// <param name="recipeID"></param>
+        /// <returns>List Step</returns>
         public List<Step> getStepsToRecipe(int recipeID)
         {
             DataTable steps = new DataTable();
@@ -232,6 +230,11 @@ namespace FoodApp
             return stepList;
         }
 
+        /// <summary>
+        /// Collects all data related to an ingredient from the database and collects them in a list.
+        /// </summary>
+        /// <param name="recipeID"></param>
+        /// <returns>List Ingredient</returns>
         public List<Ingredient> getIngredientsToRecipe(int recipeID)
         {
             DataTable ingredients = new DataTable();
