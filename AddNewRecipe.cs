@@ -1,20 +1,19 @@
-﻿using System;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Configuration;
-using System.Data.SqlClient;
-using Microsoft.VisualBasic;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace FoodApp
 {
+    /// <summary>
+    /// Is part of the GUI and shows the view for adding new recipes or ingredients
+    /// </summary>
     public partial class AddNewRecipe : UserControl
     {
+
         public AddNewRecipe()
         {
             InitializeComponent();
@@ -96,6 +95,10 @@ namespace FoodApp
             recipeService.insertIngredient(newIngredient);
         }
 
+        /// <summary>
+        /// Gets all data related to ingredients and stores them in a datatable.
+        /// </summary>
+        /// <returns>DataTable</returns>
         private DataTable getIngredientsTable()
         {
             DataTable ingredientsTable = new DataTable();
@@ -114,7 +117,10 @@ namespace FoodApp
 
             return ingredientsTable;
         }
-
+        /// <summary>
+        /// Gets all data related to units and stores them in a datatable.
+        /// </summary>
+        /// <returns>DataTable</returns>
         private DataTable getUnitsTable()
         {
             DataTable unitsTable = new DataTable();
@@ -147,39 +153,39 @@ namespace FoodApp
 
         private void btnAddIngredient_Click(object sender, EventArgs e)
         {
-                //Create the dynamic TextBox.
-                TextBox textbox = new TextBox();
-                ComboBox combobox1 = new ComboBox();
-                ComboBox combobox2 = new ComboBox();
-                int count = pnlAmount.Controls.OfType<TextBox>().ToList().Count;
+            //Create the dynamic TextBox.
+            TextBox textbox = new TextBox();
+            ComboBox combobox1 = new ComboBox();
+            ComboBox combobox2 = new ComboBox();
+            int count = pnlAmount.Controls.OfType<TextBox>().ToList().Count;
 
-                combobox1.Location = new System.Drawing.Point(0, (24 * count));
-                combobox1.Size = new System.Drawing.Size(168, 21);
-                combobox1.Name = "cbIngredient" + (count + 1);
-                combobox1.ValueMember = "ID";
-                combobox1.DisplayMember = "ingredient";
-                combobox1.DataSource = getIngredientsTable();
+            combobox1.Location = new System.Drawing.Point(0, (24 * count));
+            combobox1.Size = new System.Drawing.Size(168, 21);
+            combobox1.Name = "cbIngredient" + (count + 1);
+            combobox1.ValueMember = "ID";
+            combobox1.DisplayMember = "ingredient";
+            combobox1.DataSource = getIngredientsTable();
 
-                textbox.Location = new System.Drawing.Point(0, (24 * count));
-                textbox.Size = new System.Drawing.Size(55, 21);
-                textbox.Name = "txtAmount" + (count + 1);
+            textbox.Location = new System.Drawing.Point(0, (24 * count));
+            textbox.Size = new System.Drawing.Size(55, 21);
+            textbox.Name = "txtAmount" + (count + 1);
 
-                combobox2.Location = new System.Drawing.Point(0, (24 * count));
-                combobox2.Size = new System.Drawing.Size(55, 21);
-                combobox2.Name = "cbUnit" + (count + 1);
-                combobox2.ValueMember = "ID";
-                combobox2.DisplayMember = "unit";
-                combobox2.DataSource = getUnitsTable();
+            combobox2.Location = new System.Drawing.Point(0, (24 * count));
+            combobox2.Size = new System.Drawing.Size(55, 21);
+            combobox2.Name = "cbUnit" + (count + 1);
+            combobox2.ValueMember = "ID";
+            combobox2.DisplayMember = "unit";
+            combobox2.DataSource = getUnitsTable();
 
-                btnAddIngredient.Location = new System.Drawing.Point(28, 24 * (count + 1) + 48);
+            btnAddIngredient.Location = new System.Drawing.Point(28, 24 * (count + 1) + 48);
 
-                pnlIngredients.Size = new System.Drawing.Size(179, 24 * (count + 1) + 7);
-                pnlAmount.Size = new System.Drawing.Size(62, 24 * (count + 1) + 7);
-                pnlUnit.Size = new System.Drawing.Size(62, 24 * (count + 1) + 7);
+            pnlIngredients.Size = new System.Drawing.Size(179, 24 * (count + 1) + 7);
+            pnlAmount.Size = new System.Drawing.Size(62, 24 * (count + 1) + 7);
+            pnlUnit.Size = new System.Drawing.Size(62, 24 * (count + 1) + 7);
 
-                pnlIngredients.Controls.Add(combobox1);
-                pnlAmount.Controls.Add(textbox);
-                pnlUnit.Controls.Add(combobox2);
+            pnlIngredients.Controls.Add(combobox1);
+            pnlAmount.Controls.Add(textbox);
+            pnlUnit.Controls.Add(combobox2);
         }
 
         private void btnAddStep_Click(object sender, EventArgs e)

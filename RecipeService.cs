@@ -7,20 +7,44 @@ using System.Windows.Forms;
 
 namespace FoodApp
 {
-
+    /// <summary>
+    /// It is the main class of the application. It controls all interactions with recipes.
+    /// </summary>
     public class RecipeService
     {
+        /// <summary>
+        /// Represents \ref Ingredient "ingredients" which were entered by an user.
+        /// </summary>
         public List<Ingredient> enteredIngredients;
+        /// <summary>
+        /// Represents the recipes which's \ref Ingredient "ingredients" match the \ref enteredIngredients "entered ingredients".
+        /// </summary>
         public List<Recipe> collectedRecipes;
+        /// <summary>
+        /// Represents the selected recipe by an user, when being shown the list of \ref  collecteRecipes "available recipes".
+        /// </summary>
         public Recipe selectedRecipe;
+        /// <summary>
+        /// Is the connection to the database used for reading and writing data of recipes.
+        /// </summary>
         public SqlConnection connection;
+        /// <summary>
+        /// Contains the connection string to the database.
+        /// </summary>
         string connectionString = DatabaseFunctions.getConnectionString();
+
 
         public string sqlJoinFromString = @"FROM units INNER JOIN((recipes INNER JOIN (ingredients INNER JOIN recipe_connect ON ingredients.ID = recipe_connect.ingredient_ID) ON recipes.ID = recipe_connect.recipe_ID) INNER JOIN recipe_steps ON recipes.ID = recipe_steps.recipe_ID) ON units.ID = recipe_connect.unit_ID;";
         public string sqlSelectRecipeAndIngredient = "SELECT recipe_connect.recipe_ID, recipe_connect.ingredient_ID ";
         public string sqlSelectRestOfRecipe = "SELECT ingredients.ingredient, recipe_connect.amount, recipes.recipe_name, recipes.short_description, recipe_steps.step_description, units.unit ";
         public string sqlIngredientNames = "SELECT ingredients.ingredient ";
 
+        /// <summary>
+        /// Is the constructor for RecipeService.
+        /// </summary>
+        /// <remarks>
+        /// Each RecipeService needs to contain list for the entered ingredients and the corresponding available recipes.
+        /// </remarks>
         public RecipeService()
         {
             enteredIngredients = new List<Ingredient>();
@@ -28,25 +52,15 @@ namespace FoodApp
             //selectedRecipe = new Recipe();
         }
 
+        /// <summary>
+        /// Collects the IDs of all recipes in the database and their ingredients.
+        /// </summary>
+        /// <param name="allRecipes"></param>
+        /// <returns>List Recipe</returns>
         public List<Recipe> GetAllRecipesIDs(List<Recipe> allRecipes)
         {
             allRecipes = new List<Recipe>();
             List<Recipe> sortedAllRecipes = new List<Recipe>();
-            /*DataTable ingredientsTable = new DataTable();
-            SqlConnection connection;
-            string connectionString = DatabaseFunctions.getConnectionString();
-
-            //extract Ingredients
-            string queryI = "SELECT * FROM ingredients";
-
-            using (connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(queryI, connection))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-            {
-                adapter.Fill(ingredientsTable);
-            }
-            return ingredientsTable;*/
-
 
             using (SqlConnection cn = new SqlConnection(connectionString))
             using (SqlCommand sqlCommand = new SqlCommand((sqlSelectRecipeAndIngredient + sqlJoinFromString), cn))
@@ -54,21 +68,16 @@ namespace FoodApp
                 cn.Open();
                 SqlDataReader reader = sqlCommand.ExecuteReader();
                 int countR = 0;
-                int countI = 0;
+                //read data from database into instance of Recipe
                 while (reader.Read())
                 {
                     Recipe recipe = new Recipe();
                     recipe.id = (int)reader["recipe_ID"];
-                    //recipe.ingredients = GetIngredientIDs(allRecipes[countR].ingredients);
-                    //(List<Ingredient>)reader["ingredient_ID"]; 
                     allRecipes.Add(recipe);
-
                 }
-
-
-
-
                 cn.Close();
+
+                //read data from database into ingredients list of each recipe
                 List<Ingredient> tempIngredients = new List<Ingredient>();
                 tempIngredients = GetIngredientIDs();
                 foreach (Recipe recipe in allRecipes)
@@ -83,31 +92,13 @@ namespace FoodApp
                         {
                             recipe.ingredients.Add(ingredient);
                         }
-
                     }
                     countR++;
-
                 }
 
             }
-
-            /*for (int i = 0; i < allRecipes.Count; i++)
-            {
-                for (int j = 1; j < allRecipes.Count; j++)
-                {
-                    if (allRecipes[i].id == allRecipes[j].id)
-                    {
-                        //for (int k = 0; k < allRecipes[j].ingredients.Count; k++)
-                        //{
-                        allRecipes[i].ingredients.Add(allRecipes[j].ingredients[0]);
-                        allRecipes.Remove(allRecipes[j]);
-                        // }
-
-                    }
-
-                }
-            }*/
-
+            //since duplicate recipes with same id and same ingredients in list, duplicates need to be removed
+            // allRecipes.Distinct() not working because type Recipe to complex
             for (int i = 0; i < allRecipes.Count; i++)
             {
                 for (int j = 1; j < allRecipes.Count; j++)
@@ -122,13 +113,21 @@ namespace FoodApp
             return allRecipes;
 
         }
+
+        /// <summary>
+        /// Searches for suitable recipes according to the entered ingredients.
+        /// </summary>
+        /// <remarks>
+        /// Checks for each recipe if it contains only entered ingredients by comparing the list of entered ingredients with the list of recipes from the database.
+        /// </remarks>
+        /// <param name="enteredIngredients"></param>
+        /// <returns>List Recipe</recipe></returns>
         public List<Recipe> SearchRecipesForIngredients(List<Ingredient> enteredIngredients)
         {
             List<Recipe> allRecipes = new List<Recipe>();
             allRecipes = GetAllRecipesIDs(allRecipes);
             List<Recipe> collectedRecipes = new List<Recipe>();
-
-            //bool onlyEnteredIngredientsInRecipe;
+            // as soon as one recipe ingredient is not found in entered ingredients the bool will be set to false and the recipe won't be added to the collected recipes.
             foreach (Recipe recipeInstance in allRecipes)
             {
                 bool onlyEnteredIngredientsInRecipe = false;
@@ -159,8 +158,14 @@ namespace FoodApp
             return collectedRecipes;
         }
 
+        /// <summary>
+        /// Completes the data of recipes in the collected recipes list.
+        /// </summary>
+        /// <param name="selectedRecipes"></param>
+        /// <returns>List Recipe</returns>
         public List<Recipe> CompleteDataInRecipes(List<Recipe> selectedRecipes)
         {
+            //if the list of selected recipes does not contain any recipes throw exception
             try
             {
                 if (selectedRecipes.Count == 0)
@@ -262,15 +267,23 @@ namespace FoodApp
             return ingredientList;
         }
 
+        /// <summary>
+        /// Combines functions /ref SearchRecipesForIngredients and /ref CompleteDataInRecipes in one function.
+        /// </summary>
+        /// <param name="enteredIngredients"></param>
+        /// <param name="collectedRecipes"></param>
+        /// <returns>List Recipe</returns>
         public List<Recipe> SearchRecipes(List<Ingredient> enteredIngredients, List<Recipe> collectedRecipes)
         {
-            //List<Recipe> allRecipes = new List<Recipe>();
-            //allRecipes = GetAllRecipesIDs(allRecipes);
             collectedRecipes = SearchRecipesForIngredients(enteredIngredients);
             collectedRecipes = CompleteDataInRecipes(collectedRecipes);
             return collectedRecipes;
         }
 
+        /// <summary>
+        /// Collects the IDs of the ingredients in a list from the database.
+        /// </summary>
+        /// <returns>List Ingredient</returns>
         public List<Ingredient> GetIngredientIDs()
         {
             List<Ingredient> RecipeIngredients = new List<Ingredient>();
@@ -279,6 +292,7 @@ namespace FoodApp
                 cn.Open();
                 SqlCommand sqlCommand = new SqlCommand(sqlSelectRecipeAndIngredient + sqlJoinFromString, cn);
                 SqlDataReader reader = sqlCommand.ExecuteReader();
+                //write data from database into instance of Ingredient
                 while (reader.Read())
                 {
                     Ingredient ingredient = new Ingredient();
@@ -288,6 +302,8 @@ namespace FoodApp
                 }
                 cn.Close();
             }
+            //removes duplicate ingredients
+            //ingredientList.Distinct() not working because type Ingredient too complex
             for (int i = 0; i < RecipeIngredients.Count; i++)
             {
                 for (int j = 1; j < RecipeIngredients.Count; j++)
@@ -301,6 +317,10 @@ namespace FoodApp
             return RecipeIngredients;
         }
 
+        /// <summary>
+        /// Collects all information for all ingredients from the database.
+        /// </summary>
+        /// <returns>DataTable</returns>
         public DataTable GetIngredientsFromDatabase()
         {
             DataTable ingredientsTable = new DataTable();
@@ -319,7 +339,10 @@ namespace FoodApp
 
             return ingredientsTable;
         }
-
+        /// <summary>
+        /// Inserts added/new recipe into database.
+        /// </summary>
+        /// <param name="recipe"></param>
         public void insertRecipe(Recipe recipe)
         {
             //saves the ID of the new created Recipe for using it in the connectionTables
@@ -401,6 +424,11 @@ namespace FoodApp
                     }
             }
         }
+
+        /// <summary>
+        /// Inserts added/new ingredient into database.
+        /// </summary>
+        /// <param name="newIngredient"></param>
         public void insertIngredient(string newIngredient)
         {
             string query = "INSERT INTO ingredients (ingredient) VALUES (@newIngredient)";

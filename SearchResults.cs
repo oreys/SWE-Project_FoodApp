@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace FoodApp
 {
+    /// <summary>
+    /// Is part of the GUI and shows the available recipes according to the entered ingredients
+    /// </summary>
     public partial class SearchResults : UserControl
     {
         public int selectedID;
@@ -23,6 +26,9 @@ namespace FoodApp
             SearchRecipe.recipeService.selectedRecipe.id = countR;
         }
 
+        /// <summary>
+        /// Formats the view for displaying all available recipes
+        /// </summary>
         private void DisplayRecipes()
         {
             int countR = 0;

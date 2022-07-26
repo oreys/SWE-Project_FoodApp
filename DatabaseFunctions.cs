@@ -3,12 +3,20 @@ using System.IO;
 
 namespace FoodApp
 {
+    /// <summary>
+    /// Is the class for securing a connection to the database.
+    /// </summary>
     public class DatabaseFunctions
     {
+        /// <summary>
+        /// Contains the connection string for establishing a connection to the database.
+        /// </summary>
         private static string connectionString = ConfigurationManager.ConnectionStrings["FoodApp.Properties.Settings.food_app_databaseConnectionString"].ConnectionString;
-        //private static string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\lenar\Documents\Studium\Softwareentwicklung\Projekt_neu\SWE-Project_FoodApp\food-app_database.mdf;Integrated Security=True";
 
-        //connect to database
+
+        /// <summary>
+        /// Initializes the database file.
+        /// </summary>
         public void InitializeDatabaseFile()
         {
             string path = ".\\food-app_database.mdf";
@@ -30,6 +38,10 @@ namespace FoodApp
             }
         }
 
+        /// <summary>
+        /// Returns the connection string to the caller of the function.
+        /// </summary>
+        /// <returns></returns>
         public static string getConnectionString()
         {
             return connectionString;

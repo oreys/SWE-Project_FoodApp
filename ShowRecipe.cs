@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace FoodApp
 {
+    /// <summary>
+    /// Is part of the GUI and shows the clicked recipe.
+    /// </summary>
     public partial class ShowRecipe : UserControl
     {
         public int id;
@@ -11,6 +14,10 @@ namespace FoodApp
             InitializeComponent();
             Load += ShowRecipe_Load;
         }
+        /// <summary>
+        /// Loads the view for the selected recipe.
+        /// </summary>
+
         private int GetIndexFromID(int givenID)
         {
             int index = 0;
